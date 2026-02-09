@@ -74,6 +74,7 @@ elif projet == "1. Census (Revenus)":
 
 
 # --- PROJET 2 : AUTO-MPG ---
+
 elif projet == "2. Auto-MPG (Consommation)":
     st.header("🚗 Estimation de la Consommation (Auto-MPG)")
     model = load_model("auto-mpg.pkl")
@@ -90,28 +91,30 @@ elif projet == "2. Auto-MPG (Consommation)":
         with c3:
             accel = st.number_input("Accélération", 8.0, 25.0, 15.0)
             year = st.slider("Année du modèle (70-82)", 70, 82, 76)
+        
+        # AJOUT de la 7ème colonne manquante
+        origin = st.radio("Origine", ["USA", "Europe", "Japon"], horizontal=True)
+        origin_map = {"USA": 1, "Europe": 2, "Japon": 3}
 
         if st.button("Calculer MPG"):
             try:
-                # 1. On crée le DataFrame avec les 6 colonnes saisies
-                # L'ordre doit être strictement le même que lors de l'entraînement
-                colonnes_mpg = ["cylinders", "displacement", "horsepower", "weight", "acceleration", "model year"]
-                data_tab = [[cylinders, displacement, hp, weight, accel, year]]
-                input_df_mpg = pd.DataFrame(data_tab, columns=colonnes_mpg)
-
-                # 2. Vérification de sécurité (Optionnel mais recommandé)
-                # Si le modèle attend plus de 6 colonnes (ex: origine de la voiture),
-                # on ajuste dynamiquement
-                if hasattr(model, 'n_features_in_') and model.n_features_in_ != 6:
-                    st.error(f"Le modèle attend {model.n_features_in_} colonnes, mais vous en donnez 6.")
-                else:
-                    # 3. Prédiction
-                    prediction = model.predict(input_df_mpg)
-                    st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
+                # On prépare les 7 colonnes dans l'ordre exact
+                # (Vérifie bien que 'origin' est à la fin dans ton notebook d'origine)
+                data = [[cylinders, displacement, hp, weight, accel, year, origin_map[origin]]]
+                
+                # On utilise les noms de colonnes du modèle pour être 100% sûr
+                input_df = pd.DataFrame(data, columns=model.feature_names_in_)
+                
+                prediction = model.predict(input_df)
+                st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
             
             except Exception as e:
-                st.error(f"Erreur technique : {e}")
-
+                # Si ça plante encore sur les noms, on essaie sans les noms (numpy)
+                try:
+                    prediction = model.predict(np.array(data))
+                    st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
+                except:
+                    st.error(f"Erreur : {e}")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
