@@ -54,10 +54,29 @@ elif projet == "1. Census (Revenus)":
             edu_num = st.number_input("Années d'éducation", 1, 16, 10)
             capital_gain = st.number_input("Gain en capital", 0, 100000, 0)
 
-     if st.button("Prédire le Revenu"):
-         # 1. Création du DataFrame avec des noms temporaires
-        input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
-        columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
+        # TOUT ce qui suit doit être indenté à l'intérieur de "if model:"
+        if st.button("Prédire le Revenu"):
+            # Préparation des données en DataFrame
+            input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
+                                      columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
+
+            st.subheader("🔍 Analyse de la compatibilité")
+            
+            # Vérification des noms de colonnes attendus par le modèle
+            if hasattr(model, 'feature_names_in_'):
+                st.info(f"Le modèle attend {len(model.feature_names_in_)} colonnes.")
+                st.write("Colonnes attendues :", list(model.feature_names_in_))
+            else:
+                st.info(f"Le modèle attend {model.n_features_in_} colonnes.")
+
+            # Tentative de prédiction
+            try:
+                prediction = model.predict(input_data)
+                label = ">50K$" if prediction[0] == 1 else "<=50K$"
+                st.success(f"Résultat de la prédiction : **{label}**")
+            except Exception as e:
+                st.error(f"❌ Erreur de prédiction : {e}")
+                st.warning("Conseil : Si le modèle attend plus de 4 colonnes, vous devez lui fournir un DataFrame complet.")
 
     # 2. AFFICHAGE DES ATTENTES DU MODÈLE (C'est ici qu'on va trouver la clé)
     st.subheader("🔍 Analyse des colonnes")
