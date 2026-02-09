@@ -98,34 +98,21 @@ elif projet == "2. Auto-MPG (Consommation)":
 
         if st.button("Calculer MPG"):
             try:
-                # 1. On crée un dictionnaire avec les noms standards du dataset
-                # Attention : vérifie bien l'orthographe des clés (ex: 'model year')
-                data_dict = {
-                    "cylinders": cylinders,
-                    "displacement": displacement,
-                    "horsepower": hp,
-                    "weight": weight,
-                    "acceleration": accel,
-                    "model year": year,
-                    "origin": origin_map[origin]
-                }
+                # Ordre standard du dataset Auto-MPG :
+                # 1. cylinders, 2. displacement, 3. horsepower, 4. weight, 5. acceleration, 6. model_year, 7. origin
+                data_brute = np.array([[cylinders, displacement, hp, weight, accel, year, origin_map[origin]]])
                 
-                # 2. On transforme en DataFrame
-                df_test = pd.DataFrame([data_dict])
+                # On prédit directement avec le tableau Numpy
+                prediction = model.predict(data_brute)
                 
-                # 3. LA LIGNE CRUCIALE : On réordonne les colonnes selon le modèle
-                # Cela aligne automatiquement tes entrées sur ce que le .pkl attend
-                df_test = df_test[model.feature_names_in_]
+                # Diagnostic : on affiche les valeurs envoyées pour vérifier l'ordre
+                st.write("📊 Valeurs envoyées (Ordre: Cyl, Displ, HP, Weight, Acc, Year, Ori) :")
+                st.info(f"{list(data_brute[0])}")
                 
-                # 4. Diagnostic (pour comprendre pourquoi ça bloquait)
-                st.write("📥 Données alignées envoyées au modèle :", df_test)
-                
-                prediction = model.predict(df_test)
                 st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
                 
             except Exception as e:
-                st.error(f"Erreur d'alignement : {e}")
-                st.info("Vérifiez que les noms dans 'data_dict' correspondent aux noms de votre notebook.")
+                st.error(f"Erreur lors de la prédiction : {e}")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
