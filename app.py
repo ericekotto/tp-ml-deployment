@@ -1,14 +1,8 @@
-# Version forcing 1.0 - Refreshing environment
 import streamlit as st
 import pandas as pd
 import joblib
 import os
-import sys
 import numpy as np
-import sklearn
-
-st.sidebar.write(f"🐍 Python : {sys.version.split()[0]}")
-st.sidebar.write(f"📊 Scikit-Learn : {sklearn.__version__}")
 
 # Configuration de la page
 st.set_page_config(page_title="Dashboard Multi-Projets ML", layout="wide", page_icon="📊")
@@ -41,32 +35,25 @@ if projet == "Accueil":
 
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
-    st.header("📈 Analyse Démographique (Census)")
+    st.header("📈 Prédiction des Tranches de Revenus (Census)")
     model = load_model("census.pkl")
     
     if model:
-        st.info("Ce modèle attend 85 variables démographiques.")
-        # On crée un faux formulaire simplifié pour le test
-        pop = st.number_input("Population totale", value=5000)
-        income = st.number_input("Revenu Per Capita", value=30000)
-        
-        if st.button("Lancer l'analyse"):
-            # Créer un tableau de zéros avec la bonne taille (1 ligne, 85 colonnes)
-            full_input = np.zeros((1, 85))
-            
-            # On remplit quelques cases au hasard pour que le modèle ait 'quelque chose'
-            # (Note: Idéalement, il faudrait mapper chaque champ précisément)
-            full_input[0, 1] = pop 
-            full_input[0, 12] = income
-            
-            # Convertir en DataFrame avec les vrais noms de colonnes pour éviter l'erreur de Scikit-Learn
-            input_df = pd.DataFrame(full_input, columns=model.feature_names_in_)
-            
-            try:
-                prediction = model.predict(input_df)
-                st.success(f"Résultat du modèle : {prediction[0]}")
-            except Exception as e:
-                st.error(f"Erreur : {e}")
+        st.subheader("Paramètres d'entrée")
+        col1, col2 = st.columns(2)
+        with col1:
+            age = st.number_input("Âge", 17, 90, 30)
+            hours = st.slider("Heures travaillées par semaine", 1, 99, 40)
+        with col2:
+            edu_num = st.number_input("Années d'éducation", 1, 16, 10)
+            capital_gain = st.number_input("Gain en capital", 0, 100000, 0)
+
+        if st.button("Prédire le Revenu"):
+            # Simulation du vecteur d'entrée selon votre entraînement
+            input_data = np.array([[age, edu_num, capital_gain, hours]])
+            prediction = model.predict(input_data)
+            label = ">50K$" if prediction[0] == 1 else "<=50K$"
+            st.success(f"Résultat de la prédiction : **{label}**")
 
 # --- PROJET 2 : AUTO-MPG ---
 elif projet == "2. Auto-MPG (Consommation)":
@@ -86,20 +73,11 @@ elif projet == "2. Auto-MPG (Consommation)":
             accel = st.number_input("Accélération", 8.0, 25.0, 15.0)
             year = st.slider("Année du modèle (70-82)", 70, 82, 76)
 
-        if st.button("Prédire le Revenu"):
-            # 1. On crée un DataFrame (plus propre pour Scikit-Learn et Streamlit)
-            # Note : Les noms des colonnes doivent idéalement être ceux du dataset d'origine
-            columns = ["age", "education-num", "capital-gain", "hours-per-week"]
-            input_df = pd.DataFrame([[age, edu_num, capital_gain, hours]], columns=columns)
+        if st.button("Calculer MPG"):
+            input_data = np.array([[cylinders, displacement, hp, weight, accel, year]])
+            prediction = model.predict(input_data)
+            st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
 
-            # 2. Affichage pour débugger (Ça fonctionnera car c'est un DataFrame)
-            st.write(f"Nombre de colonnes attendues par le modèle : {model.n_features_in_}")
-            st.dataframe(input_df) 
-
-            # 3. Prédiction
-            prediction = model.predict(input_df)
-            label = ">50K$" if prediction[0] == 1 else "<=50K$"
-            st.success(f"Résultat de la prédiction : **{label}**")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
