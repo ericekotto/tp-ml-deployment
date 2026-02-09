@@ -83,11 +83,27 @@ elif projet == "2. Auto-MPG (Consommation)":
             accel = st.number_input("Accélération", 8.0, 25.0, 15.0)
             year = st.slider("Année du modèle (70-82)", 70, 82, 76)
 
-        if st.button("Calculer MPG"):
-            input_data = np.array([[cylinders, displacement, hp, weight, accel, year]])
-            prediction = model.predict(input_data)
-            st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
+        if st.button("Prédire le Revenu"):
+            # 1. On crée un DataFrame au lieu d'un np.array
+            # Assure-toi que les noms de colonnes 'age', etc., sont EXACTEMENT 
+            # ceux utilisés lors du model.fit()
+            input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
+                                      columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
 
+            # 2. Affichage diagnostic
+            st.write(f"Nombre de colonnes attendues par le modèle : {model.n_features_in_}")
+            st.write(f"Nombre de colonnes envoyées : {input_data.shape[1]}")
+            
+            # 3. Cette ligne fonctionnera maintenant car input_data est un DataFrame
+            st.dataframe(input_data) 
+
+            try:
+                prediction = model.predict(input_data)
+                label = ">50K$" if prediction[0] == 1 else "<=50K$"
+                st.success(f"Résultat de la prédiction : **{label}**")
+            except ValueError as e:
+                st.error(f"❌ Erreur de dimension : Le modèle attend {model.n_features_in_} colonnes, mais vous en fournissez {input_data.shape[1]}.")
+                st.info("Vérifiez si vous avez oublié des colonnes (workclass, occupation, etc.) qui étaient présentes lors de l'entraînement.")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
