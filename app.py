@@ -57,6 +57,10 @@ elif projet == "1. Census (Revenus)":
         if st.button("Prédire le Revenu"):
             # Simulation du vecteur d'entrée selon votre entraînement
             input_data = np.array([[age, edu_num, capital_gain, hours]])
+
+            st.write(f"Nombre de colonnes attendues par le modèle : {model.n_features_in_}")
+            st.write(f"Nombre de colonnes envoyées : {input_data.shape[1]}")
+            st.dataframe(input_data.head()) # Pour voir à quoi ressemblent tes données
             prediction = model.predict(input_data)
             label = ">50K$" if prediction[0] == 1 else "<=50K$"
             st.success(f"Résultat de la prédiction : **{label}**")
