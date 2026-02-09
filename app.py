@@ -95,7 +95,7 @@ elif projet == "2. Auto-MPG (Consommation)":
                 st.success(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
                 
             except Exception as e:
-                st.error(f"Erreur : {e}")S
+                st.error(f"Erreur : {e}")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
