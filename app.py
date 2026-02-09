@@ -5,6 +5,9 @@ import joblib
 import os
 import numpy as np
 
+st.sidebar.write(f"🐍 Python : {sys.version.split()[0]}")
+st.sidebar.write(f"📊 Scikit-Learn : {sklearn.__version__}")
+
 # Configuration de la page
 st.set_page_config(page_title="Dashboard Multi-Projets ML", layout="wide", page_icon="📊")
 
