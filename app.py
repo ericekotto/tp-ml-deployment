@@ -67,6 +67,14 @@ elif projet == "1. Census (Revenus)":
             st.write(f"Nombre de colonnes attendues par le modèle : {model.n_features_in_}")
             st.write(f"Nombre de colonnes envoyées : {input_data.shape[1]}")
             st.dataframe(input_data.head()) # Pour voir à quoi ressemblent tes données
+
+            st.write("### 🔍 Diagnostic du modèle")
+            if hasattr(model, 'feature_names_in_'):
+                st.write("Colonnes attendues par le modèle :")
+                st.write(model.feature_names_in_)
+            else:
+                st.write(f"Le modèle attend {model.n_features_in_} colonnes (sans noms spécifiques).")
+            
             prediction = model.predict(input_data)
             label = ">50K$" if prediction[0] == 1 else "<=50K$"
             st.success(f"Résultat de la prédiction : **{label}**")
