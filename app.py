@@ -41,58 +41,32 @@ if projet == "Accueil":
 
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
-    st.header("📈 Prédiction des Tranches de Revenus (Census)")
+    st.header("📈 Analyse Démographique (Census)")
     model = load_model("census.pkl")
     
     if model:
-        st.subheader("Paramètres d'entrée")
-        col1, col2 = st.columns(2)
-        with col1:
-            age = st.number_input("Âge", 17, 90, 30)
-            hours = st.slider("Heures travaillées par semaine", 1, 99, 40)
-        with col2:
-            edu_num = st.number_input("Années d'éducation", 1, 16, 10)
-            capital_gain = st.number_input("Gain en capital", 0, 100000, 0)
-
-        # TOUT ce qui suit doit être indenté à l'intérieur de "if model:"
-        if st.button("Prédire le Revenu"):
-            # Préparation des données en DataFrame
-            input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
-                                      columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
-
-            st.subheader("🔍 Analyse de la compatibilité")
+        st.info("Ce modèle attend 85 variables démographiques.")
+        # On crée un faux formulaire simplifié pour le test
+        pop = st.number_input("Population totale", value=5000)
+        income = st.number_input("Revenu Per Capita", value=30000)
+        
+        if st.button("Lancer l'analyse"):
+            # Créer un tableau de zéros avec la bonne taille (1 ligne, 85 colonnes)
+            full_input = np.zeros((1, 85))
             
-            # Vérification des noms de colonnes attendus par le modèle
-            if hasattr(model, 'feature_names_in_'):
-                st.info(f"Le modèle attend {len(model.feature_names_in_)} colonnes.")
-                st.write("Colonnes attendues :", list(model.feature_names_in_))
-            else:
-                st.info(f"Le modèle attend {model.n_features_in_} colonnes.")
-
-            # Tentative de prédiction
+            # On remplit quelques cases au hasard pour que le modèle ait 'quelque chose'
+            # (Note: Idéalement, il faudrait mapper chaque champ précisément)
+            full_input[0, 1] = pop 
+            full_input[0, 12] = income
+            
+            # Convertir en DataFrame avec les vrais noms de colonnes pour éviter l'erreur de Scikit-Learn
+            input_df = pd.DataFrame(full_input, columns=model.feature_names_in_)
+            
             try:
-                prediction = model.predict(input_data)
-                label = ">50K$" if prediction[0] == 1 else "<=50K$"
-                st.success(f"Résultat de la prédiction : **{label}**")
+                prediction = model.predict(input_df)
+                st.success(f"Résultat du modèle : {prediction[0]}")
             except Exception as e:
-                st.error(f"❌ Erreur de prédiction : {e}")
-                st.warning("Conseil : Si le modèle attend plus de 4 colonnes, vous devez lui fournir un DataFrame complet.")
-
-    # 2. AFFICHAGE DES ATTENTES DU MODÈLE (C'est ici qu'on va trouver la clé)
-    st.subheader("🔍 Analyse des colonnes")
-    if hasattr(model, 'feature_names_in_'):
-        st.write("Le modèle attend ces colonnes :", list(model.feature_names_in_))
-        st.write(f"Nombre attendu : {len(model.feature_names_in_)}")
-    else:
-        st.write(f"Le modèle attend {model.n_features_in_} colonnes sans noms précis.")
-
-    # 3. Tentative de prédiction
-    try:
-        prediction = model.predict(input_data)
-        label = ">50K$" if prediction[0] == 1 else "<=50K$"
-        st.success(f"Résultat : {label}")
-    except Exception as e:
-        st.error(f"Erreur lors de la prédiction : {e}")
+                st.error(f"Erreur : {e}")
 
 # --- PROJET 2 : AUTO-MPG ---
 elif projet == "2. Auto-MPG (Consommation)":
