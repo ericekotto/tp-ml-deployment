@@ -98,24 +98,34 @@ elif projet == "2. Auto-MPG (Consommation)":
 
         if st.button("Calculer MPG"):
             try:
-                # On prépare les 7 colonnes dans l'ordre exact
-                # (Vérifie bien que 'origin' est à la fin dans ton notebook d'origine)
-                data = [[cylinders, displacement, hp, weight, accel, year, origin_map[origin]]]
+                # 1. On crée un dictionnaire avec les noms standards du dataset
+                # Attention : vérifie bien l'orthographe des clés (ex: 'model year')
+                data_dict = {
+                    "cylinders": cylinders,
+                    "displacement": displacement,
+                    "horsepower": hp,
+                    "weight": weight,
+                    "acceleration": accel,
+                    "model year": year,
+                    "origin": origin_map[origin]
+                }
                 
-                # On utilise les noms de colonnes du modèle pour être 100% sûr
-                input_df = pd.DataFrame(data, columns=model.feature_names_in_)
-                st.write("Ordre attendu par le modèle :", list(model.feature_names_in_))
-                st.write("Tes données envoyées :", input_df.to_dict())
-                prediction = model.predict(input_df)
+                # 2. On transforme en DataFrame
+                df_test = pd.DataFrame([data_dict])
+                
+                # 3. LA LIGNE CRUCIALE : On réordonne les colonnes selon le modèle
+                # Cela aligne automatiquement tes entrées sur ce que le .pkl attend
+                df_test = df_test[model.feature_names_in_]
+                
+                # 4. Diagnostic (pour comprendre pourquoi ça bloquait)
+                st.write("📥 Données alignées envoyées au modèle :", df_test)
+                
+                prediction = model.predict(df_test)
                 st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
-            
+                
             except Exception as e:
-                # Si ça plante encore sur les noms, on essaie sans les noms (numpy)
-                try:
-                    prediction = model.predict(np.array(data))
-                    st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
-                except:
-                    st.error(f"Erreur : {e}")
+                st.error(f"Erreur d'alignement : {e}")
+                st.info("Vérifiez que les noms dans 'data_dict' correspondent aux noms de votre notebook.")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
