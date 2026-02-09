@@ -67,7 +67,7 @@ elif projet == "1. Census (Revenus)":
             prediction = model.predict(input_data)
             
             # On affiche la valeur brute pour voir si ça bouge (0 ou 1)
-            st.write(f"DEBUG - Valeur brute prédite : {prediction[0]}")
+            st.write(f" Valeur brute prédite : {prediction[0]}")
             
             label = ">50K$" if prediction[0] == 1 else "<=50K$"
             st.success(f"Résultat : **{label}**")
