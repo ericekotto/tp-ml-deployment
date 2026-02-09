@@ -56,7 +56,13 @@ elif projet == "1. Census (Revenus)":
 
         if st.button("Prédire le Revenu"):
             # Simulation du vecteur d'entrée selon votre entraînement
-            input_data = np.array([[age, edu_num, capital_gain, hours]])
+            # Remplace : input_data = np.array([[age, edu_num, capital_gain, hours]])
+            # Par ceci :
+            input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
+                                      columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
+            
+            # Maintenant cette ligne fonctionnera :
+            st.dataframe(input_data.head())
 
             st.write(f"Nombre de colonnes attendues par le modèle : {model.n_features_in_}")
             st.write(f"Nombre de colonnes envoyées : {input_data.shape[1]}")
