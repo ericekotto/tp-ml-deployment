@@ -49,29 +49,28 @@ elif projet == "1. Census (Revenus)":
             capital_gain = st.number_input("Gain en capital", 0, 100000, 0)
 
         if st.button("Prédire le Revenu"):
-    # 1. On crée le tableau de 85 colonnes avec les bons noms
-    if st.button("Prédire le Revenu"):
-        # 1. On crée le tableau de 85 colonnes avec les bons noms
-        input_data = pd.DataFrame(np.zeros((1, 85)), columns=model.feature_names_in_)
-        
-        # 2. AU LIEU DE REMPLIR AU HASARD, on cible les colonnes qui existent dans ton modèle
-        # On va tricher un peu pour lier tes curseurs aux colonnes démographiques qui ressemblent
-        if "TotalPop" in input_data.columns:
-            input_data["TotalPop"] = age * 100 # On simule une donnée cohérente
-        if "IncomePerCap" in input_data.columns:
-            input_data["IncomePerCap"] = capital_gain if capital_gain > 0 else 20000
-        if "Employed" in input_data.columns:
-            input_data["Employed"] = hours * 10
+
+            # 1. On crée le tableau de 85 colonnes avec les bons noms
+            input_data = pd.DataFrame(np.zeros((1, 85)), columns=model.feature_names_in_)
             
-        # 3. Prédiction
-        prediction = model.predict(input_data)
-        
-        # Attention : si ton modèle prédit des noms de comtés ou autre chose, 
-        # le label ">50K" est peut-être faux. Vérifions le résultat brut :
-        st.write(f"Valeur brute de prédiction : {prediction[0]}")
-        
-        label = ">50K$" if prediction[0] == 1 else "<=50K$"
-        st.success(f"Résultat : **{label}**")
+            # 2. AU LIEU DE REMPLIR AU HASARD, on cible les colonnes qui existent dans ton modèle
+            # On va tricher un peu pour lier tes curseurs aux colonnes démographiques qui ressemblent
+            if "TotalPop" in input_data.columns:
+                input_data["TotalPop"] = age * 100 # On simule une donnée cohérente
+            if "IncomePerCap" in input_data.columns:
+                input_data["IncomePerCap"] = capital_gain if capital_gain > 0 else 20000
+            if "Employed" in input_data.columns:
+                input_data["Employed"] = hours * 10
+                
+            # 3. Prédiction
+            prediction = model.predict(input_data)
+            
+            # Attention : si ton modèle prédit des noms de comtés ou autre chose, 
+            # le label ">50K" est peut-être faux. Vérifions le résultat brut :
+            st.write(f"Valeur brute de prédiction : {prediction[0]}")
+            
+            label = ">50K$" if prediction[0] == 1 else "<=50K$"
+            st.success(f"Résultat : **{label}**")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
