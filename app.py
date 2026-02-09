@@ -126,27 +126,42 @@ elif projet == "3. Bank Marketing (Souscription)":
 
         if st.button("Prédire la Souscription"):
             try:
-                # Si ton modèle a été entraîné avec un DataFrame :
+                # ÉTAPE A : Vérifier si le modèle a besoin de noms de colonnes
                 if hasattr(model, 'feature_names_in_'):
-                    # On crée un DataFrame vide avec les bons noms
-                    input_df = pd.DataFrame(np.zeros((1, 16)), columns=model.feature_names_in_)
-                    # On remplit les colonnes qu'on connaît (vérifie les noms exacts)
-                    if 'age' in input_df.columns: input_df['age'] = age
-                    if 'balance' in input_df.columns: input_df['balance'] = balance
-                    if 'duration' in input_df.columns: input_df['duration'] = duration
+                    st.info(f"Colonnes attendues : {list(model.feature_names_in_)}")
                     
-                    # On prédit avec le DataFrame
+                    # On crée un DataFrame avec les 16 colonnes à 0
+                    input_df = pd.DataFrame(np.zeros((1, 16)), columns=model.feature_names_in_)
+                    
+                    # On remplit les noms EXACTS (ex: 'age', 'balance', 'duration')
+                    # Adapte les noms ci-dessous à ceux qui s'affichent dans l'info au-dessus
+                    for col in input_df.columns:
+                        if 'age' in col.lower(): input_df[col] = age
+                        if 'balance' in col.lower(): input_df[col] = balance
+                        if 'duration' in col.lower(): input_df[col] = duration
+                        if 'housing' in col.lower(): input_df[col] = h_val
+                        if 'loan' in col.lower(): input_df[col] = l_val
+                    
                     prediction = model.predict(input_df)
+                
                 else:
-                    # Si c'est un tableau Numpy, l'ordre manuel est risqué
+                    # ÉTAPE B : Si le modèle est purement numérique (Numpy)
+                    # On essaie d'augmenter artificiellement la durée pour tester
                     full_input = np.zeros((1, 16))
                     full_input[0, 0] = age
-                    # ... remplissage ...
+                    full_input[0, 5] = balance
+                    full_input[0, 6] = h_val
+                    full_input[0, 7] = l_val
+                    full_input[0, 11] = duration # Vérifie si c'est bien l'index 11 dans ton notebook
+                    
                     prediction = model.predict(full_input)
 
+                # AFFICHAGE DU RÉSULTAT
                 if prediction[0] == 1:
                     st.success("✅ Résultat : Le client va SOUSCRIRE.")
                 else:
                     st.error("❌ Résultat : Le client ne va PAS souscrire.")
+                    st.write(f"Probabilité (si dispo) : {model.predict_proba(input_df if 'input_df' in locals() else full_input)}")
+
             except Exception as e:
-                st.error(f"Erreur : {e}")
+                st.error(f"Erreur technique : {e}")
