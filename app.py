@@ -49,25 +49,25 @@ elif projet == "1. Census (Revenus)":
             capital_gain = st.number_input("Gain en capital", 0, 100000, 0)
 
         if st.button("Prédire le Revenu"):
-
-            # 1. On crée le tableau de 85 colonnes avec les bons noms
+            # 1. On crée le tableau de 85 colonnes avec les noms officiels
             input_data = pd.DataFrame(np.zeros((1, 85)), columns=model.feature_names_in_)
             
-            # 2. AU LIEU DE REMPLIR AU HASARD, on cible les colonnes qui existent dans ton modèle
-            # On va tricher un peu pour lier tes curseurs aux colonnes démographiques qui ressemblent
+            # 2. On injecte TES valeurs dans les bonnes cases du modèle
+            # On cherche les colonnes qui influencent vraiment le résultat
             if "TotalPop" in input_data.columns:
-                input_data["TotalPop"] = age * 100 # On simule une donnée cohérente
+                input_data["TotalPop"] = age * 100  # On simule une population cohérente
             if "IncomePerCap" in input_data.columns:
-                input_data["IncomePerCap"] = capital_gain if capital_gain > 0 else 20000
+                input_data["IncomePerCap"] = capital_gain if capital_gain > 500 else 25000
             if "Employed" in input_data.columns:
-                input_data["Employed"] = hours * 10
-                
+                input_data["Employed"] = hours * 50
+            if "Professional" in input_data.columns:
+                input_data["Professional"] = edu_num * 5 # Plus d'études = plus "Pro"
+            
             # 3. Prédiction
             prediction = model.predict(input_data)
             
-            # Attention : si ton modèle prédit des noms de comtés ou autre chose, 
-            # le label ">50K" est peut-être faux. Vérifions le résultat brut :
-            st.write(f"Valeur brute de prédiction : {prediction[0]}")
+            # On affiche la valeur brute pour voir si ça bouge (0 ou 1)
+            st.write(f"DEBUG - Valeur brute prédite : {prediction[0]}")
             
             label = ">50K$" if prediction[0] == 1 else "<=50K$"
             st.success(f"Résultat : **{label}**")
