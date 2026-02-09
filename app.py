@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
+import sys
 import numpy as np
 
 st.sidebar.write(f"🐍 Python : {sys.version.split()[0]}")
