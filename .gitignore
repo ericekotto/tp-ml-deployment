@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Environnement Streamlit
+.streamlit/
+
+# Données et modèles (Optionnel)
+# Si tes fichiers .pkl sont très lourds (>100Mo), on évite de les mettre sur GitHub
+# Mais pour Streamlit Cloud, il faut qu'ils soient accessibles.
+# data/  <-- On peut ignorer les CSV si on ne veut pas les partager
