@@ -54,10 +54,10 @@ elif projet == "1. Census (Revenus)":
             edu_num = st.number_input("Années d'éducation", 1, 16, 10)
             capital_gain = st.number_input("Gain en capital", 0, 100000, 0)
 
-        if st.button("Prédire le Revenu"):
-            # 1. Création du DataFrame avec des noms temporaires
-            input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
-            columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
+     if st.button("Prédire le Revenu"):
+         # 1. Création du DataFrame avec des noms temporaires
+        input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
+        columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
 
     # 2. AFFICHAGE DES ATTENTES DU MODÈLE (C'est ici qu'on va trouver la clé)
     st.subheader("🔍 Analyse des colonnes")
