@@ -93,7 +93,7 @@ elif projet == "2. Auto-MPG (Consommation)":
 
         if st.button("Calculer MPG"):
             input_data = np.array([[cylinders, displacement, hp, weight, accel, year]])
-            prediction = model.predict(input_data)
+            prediction = model.predict(full_input)
             st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
 
 # --- PROJET 3 : BANK MARKETING ---
