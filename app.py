@@ -92,8 +92,8 @@ elif projet == "2. Auto-MPG (Consommation)":
             year = st.slider("Année du modèle (70-82)", 70, 82, 76)
 
         if st.button("Calculer MPG"):
-            input_data = np.array([[cylinders, displacement, hp, weight, accel, year]])
-            prediction = model.predict(full_input)
+            input_data_mpg = np.array([[cylinders, displacement, hp, weight, accel, year]])
+            prediction = model.predict(input_data_mpg) # On utilise la bonne variable
             st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
 
 # --- PROJET 3 : BANK MARKETING ---
