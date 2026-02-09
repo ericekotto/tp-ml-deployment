@@ -125,17 +125,28 @@ elif projet == "3. Bank Marketing (Souscription)":
             l_val = 1 if loan == "Oui" else 0
 
         if st.button("Prédire la Souscription"):
-            # Votre modèle RandomForest attend 16 colonnes
-            # On remplit les colonnes connues et on met 0 pour les autres (débrouillardise)
-            full_input = np.zeros((1, 16))
-            full_input[0, 0] = age
-            full_input[0, 5] = balance
-            full_input[0, 6] = h_val
-            full_input[0, 7] = l_val
-            full_input[0, 11] = duration
-            
-            prediction = model.predict(full_input)
-            if prediction[0] == 1:
-                st.success("✅ Résultat : Le client va SOUSCRIRE au dépôt à terme.")
-            else:
-                st.error("❌ Résultat : Le client ne va PAS souscrire.")
+            try:
+                # Si ton modèle a été entraîné avec un DataFrame :
+                if hasattr(model, 'feature_names_in_'):
+                    # On crée un DataFrame vide avec les bons noms
+                    input_df = pd.DataFrame(np.zeros((1, 16)), columns=model.feature_names_in_)
+                    # On remplit les colonnes qu'on connaît (vérifie les noms exacts)
+                    if 'age' in input_df.columns: input_df['age'] = age
+                    if 'balance' in input_df.columns: input_df['balance'] = balance
+                    if 'duration' in input_df.columns: input_df['duration'] = duration
+                    
+                    # On prédit avec le DataFrame
+                    prediction = model.predict(input_df)
+                else:
+                    # Si c'est un tableau Numpy, l'ordre manuel est risqué
+                    full_input = np.zeros((1, 16))
+                    full_input[0, 0] = age
+                    # ... remplissage ...
+                    prediction = model.predict(full_input)
+
+                if prediction[0] == 1:
+                    st.success("✅ Résultat : Le client va SOUSCRIRE.")
+                else:
+                    st.error("❌ Résultat : Le client ne va PAS souscrire.")
+            except Exception as e:
+                st.error(f"Erreur : {e}")
