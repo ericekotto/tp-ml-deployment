@@ -5,6 +5,7 @@ import joblib
 import os
 import sys
 import numpy as np
+import sklearn
 
 st.sidebar.write(f"🐍 Python : {sys.version.split()[0]}")
 st.sidebar.write(f"📊 Scikit-Learn : {sklearn.__version__}")
