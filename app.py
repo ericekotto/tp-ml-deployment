@@ -84,26 +84,19 @@ elif projet == "2. Auto-MPG (Consommation)":
             year = st.slider("Année du modèle (70-82)", 70, 82, 76)
 
         if st.button("Prédire le Revenu"):
-            # 1. On crée un DataFrame au lieu d'un np.array
-            # Assure-toi que les noms de colonnes 'age', etc., sont EXACTEMENT 
-            # ceux utilisés lors du model.fit()
-            input_data = pd.DataFrame([[age, edu_num, capital_gain, hours]], 
-                                      columns=['age', 'education-num', 'capital-gain', 'hours-per-week'])
+            # 1. On crée un DataFrame (plus propre pour Scikit-Learn et Streamlit)
+            # Note : Les noms des colonnes doivent idéalement être ceux du dataset d'origine
+            columns = ["age", "education-num", "capital-gain", "hours-per-week"]
+            input_df = pd.DataFrame([[age, edu_num, capital_gain, hours]], columns=columns)
 
-            # 2. Affichage diagnostic
+            # 2. Affichage pour débugger (Ça fonctionnera car c'est un DataFrame)
             st.write(f"Nombre de colonnes attendues par le modèle : {model.n_features_in_}")
-            st.write(f"Nombre de colonnes envoyées : {input_data.shape[1]}")
-            
-            # 3. Cette ligne fonctionnera maintenant car input_data est un DataFrame
-            st.dataframe(input_data) 
+            st.dataframe(input_df) 
 
-            try:
-                prediction = model.predict(input_data)
-                label = ">50K$" if prediction[0] == 1 else "<=50K$"
-                st.success(f"Résultat de la prédiction : **{label}**")
-            except ValueError as e:
-                st.error(f"❌ Erreur de dimension : Le modèle attend {model.n_features_in_} colonnes, mais vous en fournissez {input_data.shape[1]}.")
-                st.info("Vérifiez si vous avez oublié des colonnes (workclass, occupation, etc.) qui étaient présentes lors de l'entraînement.")
+            # 3. Prédiction
+            prediction = model.predict(input_df)
+            label = ">50K$" if prediction[0] == 1 else "<=50K$"
+            st.success(f"Résultat de la prédiction : **{label}**")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
