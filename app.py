@@ -92,9 +92,25 @@ elif projet == "2. Auto-MPG (Consommation)":
             year = st.slider("Année du modèle (70-82)", 70, 82, 76)
 
         if st.button("Calculer MPG"):
-            input_data_mpg = np.array([[cylinders, displacement, hp, weight, accel, year]])
-            prediction = model.predict(input_data_mpg) # On utilise la bonne variable
-            st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
+            try:
+                # 1. On crée le DataFrame avec les 6 colonnes saisies
+                # L'ordre doit être strictement le même que lors de l'entraînement
+                colonnes_mpg = ["cylinders", "displacement", "horsepower", "weight", "acceleration", "model year"]
+                data_tab = [[cylinders, displacement, hp, weight, accel, year]]
+                input_df_mpg = pd.DataFrame(data_tab, columns=colonnes_mpg)
+
+                # 2. Vérification de sécurité (Optionnel mais recommandé)
+                # Si le modèle attend plus de 6 colonnes (ex: origine de la voiture),
+                # on ajuste dynamiquement
+                if hasattr(model, 'n_features_in_') and model.n_features_in_ != 6:
+                    st.error(f"Le modèle attend {model.n_features_in_} colonnes, mais vous en donnez 6.")
+                else:
+                    # 3. Prédiction
+                    prediction = model.predict(input_df_mpg)
+                    st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
+            
+            except Exception as e:
+                st.error(f"Erreur technique : {e}")
 
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
