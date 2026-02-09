@@ -49,11 +49,26 @@ elif projet == "1. Census (Revenus)":
             capital_gain = st.number_input("Gain en capital", 0, 100000, 0)
 
         if st.button("Prédire le Revenu"):
-            # Simulation du vecteur d'entrée selon votre entraînement
-            input_data = np.array([[age, edu_num, capital_gain, hours]])
-            prediction = model.predict(input_data)
-            label = ">50K$" if prediction[0] == 1 else "<=50K$"
-            st.success(f"Résultat de la prédiction : **{label}**")
+            # 1. Créer un tableau vide de 85 colonnes (la taille exigée par ton modèle)
+            full_input = np.zeros((1, 85))
+            
+            # 2. Placer tes 4 variables dans les premières colonnes 
+            # (Cela permet d'éviter l'erreur de dimension)
+            full_input[0, 0] = age
+            full_input[0, 1] = edu_num
+            full_input[0, 2] = capital_gain
+            full_input[0, 3] = hours
+            
+            # 3. Transformer en DataFrame avec les noms que le modèle attend
+            input_data = pd.DataFrame(full_input, columns=model.feature_names_in_)
+
+            # 4. Prédiction
+            try:
+                prediction = model.predict(input_data)
+                label = ">50K$" if prediction[0] == 1 else "<=50K$"
+                st.success(f"Résultat de la prédiction : **{label}**")
+            except Exception as e:
+                st.error(f"Erreur : {e}")
 
 # --- PROJET 2 : AUTO-MPG ---
 elif projet == "2. Auto-MPG (Consommation)":
