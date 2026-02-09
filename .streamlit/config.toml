@@ -1,5 +1,12 @@
 [theme]
-primaryColor="#0c0606"
-backgroundColor="#0b1016"
-secondaryBackgroundColor="#d81b3c"
+# Le rouge devient la couleur des curseurs et boutons pour être visible
+primaryColor="#d81b3c" 
+
+# Le fond reste bleu nuit très sombre
+backgroundColor="#0b1016" 
+
+# La barre latérale et les zones secondaires passent en noir profond
+secondaryBackgroundColor="#0c0606" 
+
+# Le texte reste en blanc cassé
 textColor="#f9f4f4"
