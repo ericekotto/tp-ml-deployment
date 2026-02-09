@@ -104,7 +104,8 @@ elif projet == "2. Auto-MPG (Consommation)":
                 
                 # On utilise les noms de colonnes du modèle pour être 100% sûr
                 input_df = pd.DataFrame(data, columns=model.feature_names_in_)
-                
+                st.write("Ordre attendu par le modèle :", list(model.feature_names_in_))
+                st.write("Tes données envoyées :", input_df.to_dict())
                 prediction = model.predict(input_df)
                 st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
             
