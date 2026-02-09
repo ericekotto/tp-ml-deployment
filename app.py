@@ -50,49 +50,28 @@ elif projet == "1. Census (Revenus)":
 
         if st.button("Prédire le Revenu"):
     # 1. On crée le tableau de 85 colonnes avec les bons noms
-    input_data = pd.DataFrame(np.zeros((1, 85)), columns=model.feature_names_in_)
-    
-    # 2. AU LIEU DE REMPLIR AU HASARD, on cible les colonnes qui existent dans ton modèle
-    # On va tricher un peu pour lier tes curseurs aux colonnes démographiques qui ressemblent
-    if "TotalPop" in input_data.columns:
-        input_data["TotalPop"] = age * 100 # On simule une donnée cohérente
-    if "IncomePerCap" in input_data.columns:
-        input_data["IncomePerCap"] = capital_gain if capital_gain > 0 else 20000
-    if "Employed" in input_data.columns:
-        input_data["Employed"] = hours * 10
+    if st.button("Prédire le Revenu"):
+        # 1. On crée le tableau de 85 colonnes avec les bons noms
+        input_data = pd.DataFrame(np.zeros((1, 85)), columns=model.feature_names_in_)
         
-    # 3. Prédiction
-    prediction = model.predict(input_data)
-    
-    # Attention : si ton modèle prédit des noms de comtés ou autre chose, 
-    # le label ">50K" est peut-être faux. Vérifions le résultat brut :
-    st.write(f"Valeur brute de prédiction : {prediction[0]}")
-    
-    label = ">50K$" if prediction[0] == 1 else "<=50K$"
-    st.success(f"Résultat : **{label}**")
-# --- PROJET 2 : AUTO-MPG ---
-elif projet == "2. Auto-MPG (Consommation)":
-    st.header("🚗 Estimation de la Consommation (Auto-MPG)")
-    model = load_model("auto-mpg.pkl")
-    
-    if model:
-        st.subheader("Caractéristiques du véhicule")
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            cylinders = st.selectbox("Cylindres", [4, 6, 8])
-            displacement = st.number_input("Cylindrée (Displacement)", 50.0, 500.0, 150.0)
-        with c2:
-            hp = st.number_input("Chevaux (Horsepower)", 40, 250, 100)
-            weight = st.number_input("Poids (lbs)", 1500, 5000, 3000)
-        with c3:
-            accel = st.number_input("Accélération", 8.0, 25.0, 15.0)
-            year = st.slider("Année du modèle (70-82)", 70, 82, 76)
-
-        if st.button("Calculer MPG"):
-            input_data = np.array([[cylinders, displacement, hp, weight, accel, year]])
-            prediction = model.predict(input_data)
-            st.warning(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
-
+        # 2. AU LIEU DE REMPLIR AU HASARD, on cible les colonnes qui existent dans ton modèle
+        # On va tricher un peu pour lier tes curseurs aux colonnes démographiques qui ressemblent
+        if "TotalPop" in input_data.columns:
+            input_data["TotalPop"] = age * 100 # On simule une donnée cohérente
+        if "IncomePerCap" in input_data.columns:
+            input_data["IncomePerCap"] = capital_gain if capital_gain > 0 else 20000
+        if "Employed" in input_data.columns:
+            input_data["Employed"] = hours * 10
+            
+        # 3. Prédiction
+        prediction = model.predict(input_data)
+        
+        # Attention : si ton modèle prédit des noms de comtés ou autre chose, 
+        # le label ">50K" est peut-être faux. Vérifions le résultat brut :
+        st.write(f"Valeur brute de prédiction : {prediction[0]}")
+        
+        label = ">50K$" if prediction[0] == 1 else "<=50K$"
+        st.success(f"Résultat : **{label}**")
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire (Bank-Full)")
