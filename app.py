@@ -74,26 +74,36 @@ elif projet == "1. Census (Revenus)":
 
 
 # --- PROJET 2 : AUTO-MPG ---
+# --- PROJET 2 : AUTO-MPG ---
 elif projet == "2. Auto-MPG (Consommation)":
     st.header("🚗 Estimation de la Consommation (Auto-MPG)")
     model = load_model("auto-mpg.pkl")
-    scaler = load_model("scaler_mpg.pkl") # <-- AJOUTE CETTE LIGNE ICI
+    scaler = load_model("scaler_mpg.pkl")
     
-    if model and scaler: # On vérifie que les deux sont bien chargés
-        # ... (Garde tes colonnes et tes inputs comme avant) ...
+    if model and scaler:
+        # --- CETTE PARTIE DOIT ÊTRE EN DEHORS DU BOUTON POUR ÊTRE VISIBLE ---
+        st.subheader("Caractéristiques du véhicule")
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            cylinders = st.selectbox("Cylindres", [4, 6, 8])
+            displacement = st.number_input("Cylindrée (Displacement)", 50.0, 500.0, 150.0)
+        with c2:
+            hp = st.number_input("Chevaux (Horsepower)", 40, 250, 100)
+            weight = st.number_input("Poids (lbs)", 1500, 5000, 3000)
+        with c3:
+            accel = st.number_input("Accélération", 8.0, 25.0, 15.0)
+            year = st.slider("Année du modèle (70-82)", 70, 82, 76)
+        
+        origin = st.radio("Origine", ["USA", "Europe", "Japon"], horizontal=True)
+        origin_map = {"USA": 1, "Europe": 2, "Japon": 3}
 
+        # --- SEUL LE CALCUL EST DANS LE BOUTON ---
         if st.button("Calculer MPG"):
             try:
-                # 1. On prépare les données brutes
                 raw_data = np.array([[cylinders, displacement, hp, weight, accel, year, origin_map[origin]]])
-                
-                # 2. ON NORMALISE (C'est l'étape qui corrige le 17.33 !)
                 data_scaled = scaler.transform(raw_data)
-                
-                # 3. Prédiction avec les données transformées
                 prediction = model.predict(data_scaled)
                 st.success(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
-                
             except Exception as e:
                 st.error(f"Erreur : {e}")
 # --- PROJET 3 : BANK MARKETING ---
