@@ -171,7 +171,7 @@ st.sidebar.caption("© 2026 **EKOTTO ERIC**") # Utilise caption pour un texte pl
 st.sidebar.markdown(
     """
     <div style='display: flex; gap: 10px; font-size: 20px;'>
-        <a href='https://github.com/ton_profil' target='_blank' style='text-decoration: none;'>📂</a>
+        <a href='https://github.com/ericekotto' target='_blank' style='text-decoration: none;'>mon lien Github📂</a>
         <a href='https://linkedin.com/in/ton_profil' target='_blank' style='text-decoration: none;'>💼</a>
     </div>
     <style>
