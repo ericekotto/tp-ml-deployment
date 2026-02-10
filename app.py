@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 # Configuration de la page
-st.set_page_config(page_title="Dashboard Multi-Projets ML", layout="wide", page_icon="📊")
+st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
 
 # --- CONFIGURATION DES CHEMINS ---
 # Dossier contenant les modèles
