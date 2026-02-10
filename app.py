@@ -179,7 +179,7 @@ st.sidebar.markdown(
         /* Supprime les bordures/boîtes grises indésirables autour des liens HTML dans la sidebar */
         [data-testid="stMarkdownContainer"] a {
             background-color: transparent !important;
-        }
+        } 
     </style>
     """,
     unsafe_allow_html=True
