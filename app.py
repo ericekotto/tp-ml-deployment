@@ -165,17 +165,14 @@ elif projet == "3. Bank Marketing (Souscription)":
 st.sidebar.markdown("<br>" * 8, unsafe_allow_html=True) # Pousse le texte vers le bas
 st.sidebar.divider() # Ligne de séparation propre
 
-st.sidebar.caption("© 2026 **EKOTTO ERIC**") # Ton nom en discret
+st.sidebar.caption("© 2026 **EKOTTO ERIC ENS STUDENT**") # Ton nom en discret
 
 # Liens GitHub et LinkedIn en bleu
 st.sidebar.markdown(
     """
     <div style='display: flex; flex-direction: column; gap: 5px;'>
-        <a href='https://github.com/ton_profil' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
-            🔵 Mon GitHub
-        </a>
-        <a href='https://linkedin.com/in/ton_profil' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
-            🔵 Mon LinkedIn
+        <a href='https://github.com/ericekotto' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
+            🔵 Mon lien Github
         </a>
     </div>
     <style>
