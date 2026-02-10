@@ -1,4 +1,4 @@
-[theme] 
+[theme]
 # Le rouge devient la couleur des curseurs et boutons pour être visible
 primaryColor="#d81b3c" 
 
@@ -10,4 +10,3 @@ secondaryBackgroundColor="#0c0606"
 
 # Le texte reste en blanc cassé
 textColor="#f9f4f4"
-               
