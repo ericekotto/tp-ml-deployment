@@ -160,3 +160,27 @@ elif projet == "3. Bank Marketing (Souscription)":
 
             except Exception as e:
                 st.error(f"Erreur technique : {e}")
+
+# --- PIED DE PAGE (FOOTER) DANS LA SIDEBAR ---
+
+st.sidebar.markdown("---") # Une ligne de séparation
+
+st.sidebar.markdown(
+
+    """
+
+    <div style='text-align: center; color: #f9f4f4; font-size: 12px;'>
+
+        © 2026 <b>EKOTTO ERIC</b><br>
+
+        <a href='https://github.com/ericekotto' target='_blank' style='color: #d81b3c; text-decoration: none;'>🚀 GitHub</a> | 
+
+        <a href='https://linkedin.com/in/ENS_STUDENT' target='_blank' style='color: #d81b3c; text-decoration: none;'>🔗 LinkedIn</a>
+
+    </div>
+
+    """,
+
+    unsafe_allow_html=True
+
+)
