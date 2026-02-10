@@ -161,26 +161,28 @@ elif projet == "3. Bank Marketing (Souscription)":
             except Exception as e:
                 st.error(f"Erreur technique : {e}")
 
-# --- PIED DE PAGE (FOOTER) DANS LA SIDEBAR ---
+# --- PIED DE PAGE DANS LA SIDEBAR ---
+st.sidebar.markdown("<br>" * 5, unsafe_allow_html=True) # Espace pour pousser le texte vers le bas
+st.sidebar.divider() # Une ligne de séparation élégante et native
 
-st.sidebar.markdown("---") # Une ligne de séparation
+st.sidebar.caption("© 2026 **EKOTTO ERIC**") # Utilise caption pour un texte plus petit et discret
 
+# Liens avec icônes (facultatif mais plus joli)
 st.sidebar.markdown(
-
     """
-
-    <div style='text-align: center; color: #f9f4f4; font-size: 12px;'>
-
-        © 2026 <b>EKOTTO ERIC</b><br>
-
-        <a href='https://github.com/ericekotto' target='_blank' style='color: #d81b3c; text-decoration: none;'>🚀 GitHub</a> | 
-
-        <a href='https://linkedin.com/in/ENS_STUDENT' target='_blank' style='color: #d81b3c; text-decoration: none;'>🔗 LinkedIn</a>
-
+    <div style='display: flex; gap: 10px; font-size: 20px;'>
+        <a href='https://github.com/ton_profil' target='_blank' style='text-decoration: none;'>📂</a>
+        <a href='https://linkedin.com/in/ton_profil' target='_blank' style='text-decoration: none;'>💼</a>
     </div>
-
+    <style>
+        /* Ce bloc CSS cache la boîte grise et stylise les liens */
+        [data-testid="stSidebarNav"] + div {
+            display: none;
+        }
+        a {
+            color: #d81b3c !important; /* Ton rouge thématique */
+        }
+    </style>
     """,
-
     unsafe_allow_html=True
-
 )
