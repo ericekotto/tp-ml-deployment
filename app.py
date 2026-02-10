@@ -162,25 +162,26 @@ elif projet == "3. Bank Marketing (Souscription)":
                 st.error(f"Erreur technique : {e}")
 
 # --- PIED DE PAGE DANS LA SIDEBAR ---
-st.sidebar.markdown("<br>" * 5, unsafe_allow_html=True) # Espace pour pousser le texte vers le bas
-st.sidebar.divider() # Une ligne de séparation élégante et native
+st.sidebar.markdown("<br>" * 8, unsafe_allow_html=True) # Pousse le texte vers le bas
+st.sidebar.divider() # Ligne de séparation propre
 
-st.sidebar.caption("© 2026 **EKOTTO ERIC**") # Utilise caption pour un texte plus petit et discret
+st.sidebar.caption("© 2026 **EKOTTO ERIC**") # Ton nom en discret
 
-# Liens avec icônes (facultatif mais plus joli)
+# Liens GitHub et LinkedIn en bleu
 st.sidebar.markdown(
     """
-    <div style='display: flex; gap: 10px; font-size: 20px;'>
-        <a href='https://github.com/ericekotto' target='_blank' style='text-decoration: none;'>mon lien Github📂</a>
-        <a href='https://linkedin.com/in/ton_profil' target='_blank' style='text-decoration: none;'>💼</a>
+    <div style='display: flex; flex-direction: column; gap: 5px;'>
+        <a href='https://github.com/ton_profil' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
+            🔵 Mon GitHub
+        </a>
+        <a href='https://linkedin.com/in/ton_profil' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
+            🔵 Mon LinkedIn
+        </a>
     </div>
     <style>
-        /* Ce bloc CSS cache la boîte grise et stylise les liens */
-        [data-testid="stSidebarNav"] + div {
-            display: none;
-        }
-        a {
-            color: #d81b3c !important; /* Ton rouge thématique */
+        /* Supprime les bordures/boîtes grises indésirables autour des liens HTML dans la sidebar */
+        [data-testid="stMarkdownContainer"] a {
+            background-color: transparent !important;
         }
     </style>
     """,
