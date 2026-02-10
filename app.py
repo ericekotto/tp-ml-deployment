@@ -171,8 +171,8 @@ st.sidebar.caption("© 2026 **EKOTTO ERIC ENS STUDENT**") # Ton nom en discret
 st.sidebar.markdown(
     """
     <div style='display: flex; flex-direction: column; gap: 5px;'>
-        <a href='https://github.com/ericekotto' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
-            🔵 Mon lien Github
+        <a href='https://github.com/ericekotto/tp-ml-deployment' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
+            🔵 Mon lien Github vers mon projet
         </a>
     </div>
     <style>
