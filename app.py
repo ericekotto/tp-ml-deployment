@@ -30,9 +30,41 @@ projet = st.sidebar.radio("Sélectionnez un projet :",
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
     st.title("🚀 Interface de Déploiement Machine Learning")
-    st.write("Bienvenue dans votre application. Cette plateforme permet de tester vos 3 modèles entraînés.")
-    st.info(f"📁 Modèles chargés depuis : `/{MODEL_DIR}`\n\n📁 Données sources situées dans : `/{DATA_DIR}`")
+    st.write("Bienvenue dans cette application interactive ! Vous pouvez tester ici trois modèles entraînés sur des problématiques réelles.")
+    
+    st.divider()
 
+    # Utilisation de colonnes pour présenter les 3 datasets
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.subheader("💰 Census Income")
+        st.write("""
+        **Objectif :** Prédire si une personne gagne plus de 50k$ par an.
+        - **Type :** Classification binaire.
+        - **Variables :** Âge, éducation, statut matrimonial, heures travaillées, etc.
+        """)
+
+    with col2:
+        st.subheader("🚗 Auto-MPG")
+        st.write("""
+        **Objectif :** Estimer la consommation de carburant (MPG) d'un véhicule.
+        - **Type :** Régression.
+        - **Variables :** Cylindres, puissance (HP), poids, année de fabrication.
+        """)
+
+    with col3:
+        st.subheader("🏦 Bank Marketing")
+        st.write("""
+        **Objectif :** Prédire si un client va souscrire à un dépôt à terme.
+        - **Type :** Classification.
+        - **Variables :** Solde, durée d'appel, historique de contact.
+        """)
+
+    st.divider()
+    
+    # Rappel des dossiers techniques
+    st.info("📂 Les modèles sont chargés depuis le dossier `/models` et les données traitées respectent les structures standards de Scikit-Learn.")
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
     st.header("📈 Prédiction des Tranches de Revenus (Census)")
