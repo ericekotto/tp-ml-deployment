@@ -30,41 +30,65 @@ projet = st.sidebar.radio("Sélectionnez un projet :",
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
     st.title("🚀 Interface de Déploiement Machine Learning")
-    st.write("Bienvenue dans cette application interactive ! Vous pouvez tester ici trois modèles entraînés sur des problématiques réelles.")
+    st.markdown("""
+    Bienvenue dans cette interface de démonstration. Cette application regroupe trois modèles de Machine Learning 
+    distincts, illustrant des cas d'usage concrets en entreprise : **Classification socio-économique**, 
+    **Optimisation énergétique** et **Ciblage marketing**.
+    """)
     
     st.divider()
 
-    # Utilisation de colonnes pour présenter les 3 datasets
-    col1, col2, col3 = st.columns(3)
+    # --- DATASET 1 : CENSUS ---
+    with st.expander("💰 Focus sur le Dataset : Census Income (Adult Dataset)", expanded=True):
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.image("https://www.census.gov/content/dam/Census/public/brand/census-logo-white-on-blue.png", width=150)
+        with col2:
+            st.write("""
+            **Contexte :** Issu de la base de données de l'UCI Machine Learning, ce dataset permet de prédire si le revenu d'un individu 
+            dépasse les 50 000 $ par an en fonction de données démographiques.
+            
+            **Détails techniques :**
+            - **Taille :** Environ 32 000 entrées.
+            - **Variables cibles :** `>50K` ou `<=50K`.
+            - **Features clés :** Le niveau d'éducation (Education-num), l'âge, la catégorie socioprofessionnelle et le gain en capital.
+            - **Enjeu :** C'est un problème classique de classification binaire avec un fort déséquilibre de classes.
+            """)
 
-    with col1:
-        st.subheader("💰 Census Income")
-        st.write("""
-        **Objectif :** Prédire si une personne gagne plus de 50k$ par an.
-        - **Type :** Classification binaire.
-        - **Variables :** Âge, éducation, statut matrimonial, heures travaillées, etc.
-        """)
+    # --- DATASET 2 : AUTO-MPG ---
+    with st.expander("🚗 Focus sur le Dataset : Auto-MPG (Consommation de Carburant)", expanded=True):
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.write("### ⛽ 📊")
+        with col2:
+            st.write("""
+            **Contexte :** Ce dataset historique concerne la consommation de carburant des automobiles en miles par gallon (MPG). 
+            L'objectif est de prédire l'efficacité énergétique d'un véhicule à partir de ses caractéristiques physiques.
+            
+            **Détails techniques :**
+            - **Type de modèle :** Régression linéaire ou Random Forest Regressor.
+            - **Variables clés :** Nombre de cylindres, poids du véhicule (très corrélé), puissance (horsepower) et année du modèle.
+            - **Enjeu :** Comprendre l'impact de l'évolution technologique des années 70-80 sur la réduction de la consommation.
+            """)
 
-    with col2:
-        st.subheader("🚗 Auto-MPG")
-        st.write("""
-        **Objectif :** Estimer la consommation de carburant (MPG) d'un véhicule.
-        - **Type :** Régression.
-        - **Variables :** Cylindres, puissance (HP), poids, année de fabrication.
-        """)
-
-    with col3:
-        st.subheader("🏦 Bank Marketing")
-        st.write("""
-        **Objectif :** Prédire si un client va souscrire à un dépôt à terme.
-        - **Type :** Classification.
-        - **Variables :** Solde, durée d'appel, historique de contact.
-        """)
+    # --- DATASET 3 : BANK MARKETING ---
+    with st.expander("🏦 Focus sur le Dataset : Bank Marketing (Marketing Direct)", expanded=True):
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.write("### 📞 🏦")
+        with col2:
+            st.write("""
+            **Contexte :** Données liées à des campagnes de marketing direct d'une institution bancaire portugaise, basées sur des appels téléphoniques.
+            
+            **Détails techniques :**
+            - **Objectif :** Prédire si le client va souscrire à un dépôt à terme (variable `y`).
+            - **Variable Critique :** La **durée du contact** (plus elle est longue, plus la chance de succès est élevée).
+            - **Variables contextuelles :** Le solde du compte (balance), l'existence de prêts (housing/loan) et les résultats des campagnes précédentes.
+            - **Enjeu :** Optimiser les ressources de la banque en ciblant uniquement les clients à fort potentiel.
+            """)
 
     st.divider()
-    
-    # Rappel des dossiers techniques
-    st.info("📂 Les modèles sont chargés depuis le dossier `/models` et les données traitées respectent les structures standards de Scikit-Learn.")
+    st.info("💡 Sélectionnez un projet dans le menu à gauche pour effectuer des prédictions en temps réel.")
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
     st.header("📈 Prédiction des Tranches de Revenus (Census)")
