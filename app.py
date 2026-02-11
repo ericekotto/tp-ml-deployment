@@ -29,7 +29,7 @@ projet = st.sidebar.radio("Sélectionnez un projet :",
 
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
-    st.title("TEST DE NOS 3 MODELES DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS?SOYEZ LA BIENVENUE")
+    st.title("TEST_DE_NOS_3_MODELS DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS?SOYEZ LA BIENVENUE")
     st.markdown("""
     Bienvenue dans cette interface de démonstration. Cette application regroupe trois modèles de Machine Learning 
     distincts, illustrant des cas d'usage concrets en entreprise : **Classification socio-économique**, 
