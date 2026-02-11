@@ -28,16 +28,19 @@ projet = st.sidebar.radio("Sélectionnez un projet :",
     ["Accueil", "1. Census (Revenus)", "2. Auto-MPG (Consommation)", "3. Bank Marketing (Souscription)"])
 
 # --- PAGE D'ACCUEIL ---
+
 if projet == "Accueil":
-    # Titre personnalisé affiché en rouge
+    # Titre personnalisé affiché en VERT
     st.markdown(
         """
-        <h1 style='color: #d81b3c; text-align: center; font-size: 32px;'>
+        <h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>
             TEST_DE_NOS_3_MODELS DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS, SOYEZ LA BIENVENUE
         </h1>
         """, 
         unsafe_allow_html=True
     )
+    
+    st.write("---")
     
     st.write("---") # Une ligne de séparation élégante
     st.markdown("""
