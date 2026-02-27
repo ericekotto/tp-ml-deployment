@@ -16,7 +16,7 @@ st.markdown("""
 
         /* Style de base : RECTANGLE BLEU */
         [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] {
-            background-color: #007BFF !important; /* Bleu principal */
+            background-color: #007BFF !important;
             padding: 12px 20px !important;
             border-radius: 4px !important;
             border: 1px solid #0056b3 !important;
@@ -24,7 +24,7 @@ st.markdown("""
             transition: 0.3s ease;
         }
 
-        /* Effet au survol (S'éclaircit un peu) */
+        /* Effet au survol */
         [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"]:hover {
             background-color: #0069d9 !important;
             border-color: white !important;
@@ -35,9 +35,9 @@ st.markdown("""
             display: none !important;
         }
 
-        /* Style quand SÉLECTIONNÉ (Bleu plus foncé ou Bordure épaisse) */
+        /* Style quand SÉLECTIONNÉ */
         [data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"] {
-            background-color: #004085 !important; /* Bleu foncé pour la sélection */
+            background-color: #004085 !important;
             border: 2px solid #FFFFFF !important;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
@@ -49,7 +49,7 @@ st.markdown("""
             font-size: 15px !important;
         }
 
-        /* --- 2. STYLE DES ONGLETS DU HAUT (RESTE INCHANGÉ) --- */
+        /* --- 2. STYLE DES ONGLETS DU HAUT --- */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
             height: 60px !important;
@@ -110,7 +110,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-# --- PAGE D'ACCUEIL (MISE À JOUR DES DESCRIPTIONS) ---
+# --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
     st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS, SOYEZ LA BIENVENUE</h1>", unsafe_allow_html=True)
     st.divider()
@@ -156,24 +156,6 @@ if projet == "Accueil":
             **Détails techniques :** Classification. Variable critique : Durée du contact.
             **Enjeu :** Optimisation des campagnes de marketing direct.
             """)
-
-    # --- DATASET 1 : CENSUS ---
-    with st.expander("💰 Focus sur le Dataset : Census Income (Adult Dataset)", expanded=True):
-        col1, col2 = st.columns([1, 2])
-        with col1: st.image("https://www.census.gov/content/dam/Census/public/brand/census-logo-white-on-blue.png", width=150)
-        with col2: st.write("""**Contexte :** Prédire si le revenu dépasse 50 000 $ par an. **Enjeu :** Classification binaire.""")
-
-    # --- DATASET 2 : AUTO-MPG ---
-    with st.expander("🚗 Focus sur le Dataset : Auto-MPG (Performance énergétique)", expanded=True):
-        col3, col4 = st.columns([1, 2])
-        with col3: st.markdown("### 🏎️")
-        with col4: st.write("""**Contexte :** Prédire la consommation (MPG) des véhicules. **Enjeu :** Régression.""")
-
-    # --- DATASET 3 : BANK MARKETING ---
-    with st.expander("🏦 Focus sur le Dataset : Bank Marketing (Marketing Direct)", expanded=True):
-        col5, col6 = st.columns([1, 2])
-        with col5: st.markdown("### 📊")
-        with col6: st.write("""**Contexte :** Prédire la souscription à un dépôt à terme. **Enjeu :** Optimisation marketing.""")
 
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
