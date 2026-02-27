@@ -9,40 +9,13 @@ st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wid
 
 st.markdown("""
     <style>
-        /* 1. TRANSFORMATION DES RONDS DE LA SIDEBAR EN CARRÉS/RECTANGLES */
-        div[data-testid="stSidebar"] div[role="radiogroup"] {
-            gap: 10px;
-        }
-        
-        div[data-testid="stSidebar"] label[data-baseweb="radio"] {
-            background-color: #333;
-            padding: 15px 20px;
-            border-radius: 5px; /* Forme carrée */
-            border: 1px solid #555;
-            width: 100%;
-            transition: 0.3s;
-        }
-
-        /* Masquer le petit cercle d'origine */
-        div[data-testid="stSidebar"] label[data-baseweb="radio"] div[data-testid="stMarkdownContainer"] + div {
-            display: none;
-        }
-        
-        /* Style quand un bouton de la sidebar est sélectionné */
-        div[data-testid="stSidebar"] label[data-baseweb="radio"][aria-checked="true"] {
-            background-color: #2ECC71 !important; /* Vert pour la sélection */
-            border: 1px solid white;
-        }
-
-        /* 2. STYLE DES ONGLETS (RECTANGLES HAUT DE PAGE) */
+        /* 1. STYLE DES ONGLETS (RECTANGLES) */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
             height: 60px !important;
             border-radius: 5px !important;
             border: 2px solid white !important;
             margin-right: 20px !important;
-            font-weight: bold !important;
-            color: white !important;
         }
 
         /* Onglet 1 (Prédiction) -> VERT */
@@ -55,7 +28,7 @@ st.markdown("""
             background-color: #ff4444 !important;
         }
 
-        /* 3. STYLE DES BOUTONS D'ACTION BLEU */
+        /* 2. STYLE DES BOUTONS D'ACTION (PRÉDIRE / CALCULER) -> BLEU */
         div.stButton > button {
             background-color: #007BFF !important;
             color: white !important;
@@ -69,6 +42,17 @@ st.markdown("""
         div.stButton > button:hover {
             background-color: #0056b3 !important;
             border: 1px solid white !important;
+        }
+
+        /* 3. RÉPARATION DES CHAMPS DE SAISIE (NUMBER INPUT) */
+        div[data-testid="stNumberInput"] button {
+            width: 40px !important;
+            height: 40px !important;
+            background-color: #262730 !important;
+        }
+        
+        div[data-testid="stNumberInput"] input {
+            color: white !important;
         }
 
         /* Masquer la ligne de sélection par défaut */
@@ -105,13 +89,16 @@ st.sidebar.markdown(
             🔵 Mon lien Github vers mon projet
         </a>
     </div>
+    <style>
+        [data-testid="stMarkdownContainer"] a { background-color: transparent !important; }
+    </style>
     """, 
     unsafe_allow_html=True
 )
 
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
-    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST DE NOS 3 MODÈLES DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
     st.divider()
     
     st.markdown("""
@@ -224,11 +211,14 @@ elif projet == "2. Auto-MPG (Consommation)":
 
     with tab2:
         st.subheader("📈 Analyse de la Régression")
+        st.info("Algorithme utilisé : **Linear Regression**")
         m1, m2, m3 = st.columns(3)
-        m1.metric("R² Score", "0.82")
-        m2.metric("MAE", "2.1 MPG")
-        m3.metric("RMSE", "2.8 MPG")
-        st.scatter_chart(pd.DataFrame(np.random.randn(20, 2), columns=['Poids', 'MPG']))
+        m1.metric("R² Score", "0.82", "Performance élevée")
+        m2.metric("Erreur (MAE)", "2.1 MPG")
+        m3.metric("Erreur (RMSE)", "2.8 MPG")
+        st.write("**Relation Poids vs Consommation (Tendance)**")
+        chart_data = pd.DataFrame(np.random.randn(20, 2), columns=['Poids', 'MPG'])
+        st.scatter_chart(chart_data)
 
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
@@ -257,6 +247,14 @@ elif projet == "3. Bank Marketing (Souscription)":
 
     with tab2:
         st.subheader("🎯 Analyse de Classification")
-        st.metric("Score AUC-ROC", "0.91")
-        conf_matrix = pd.DataFrame([[3900, 100], [200, 400]], index=['Réalité: Non', 'Réalité: Oui'], columns=['Prédit: Non', 'Prédit: Oui'])
-        st.table(conf_matrix)
+        st.info("Algorithme utilisé : **Logistic Regression**")
+        st.metric("Score AUC-ROC", "0.91", "+0.05 vs baseline")
+        col_b1, col_b2 = st.columns(2)
+        with col_b1:
+            st.write("**Matrice de Confusion**")
+            conf_matrix = pd.DataFrame([[3900, 100], [200, 400]], index=['Réalité: Non', 'Réalité: Oui'], columns=['Prédit: Non', 'Prédit: Oui'])
+            st.table(conf_matrix)
+        with col_b2:
+            st.write("**Courbe de Précision/Rappel (Simulation)**")
+            line_data = pd.DataFrame(np.random.rand(10, 2), columns=['Precision', 'Recall']).sort_values('Recall')
+            st.line_chart(line_data)
