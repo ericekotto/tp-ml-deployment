@@ -10,51 +10,55 @@ st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wid
 # ------------------------------------------------------------------
 # 🖌️ ZONE CSS PERSONNALISÉ POUR STYLISER LES ONG_LETS (RECTANGLES)
 # ------------------------------------------------------------------
-# --- STYLE POUR RECTANGLES GÉANTS SUR FOND NOIR ---
+# --- STYLE FORCE POUR RECTANGLES GEANTS ---
 st.markdown("""
     <style>
-        /* Éloignement des onglets */
+        /* 1. On cible le conteneur global des onglets */
         div[data-testid="stTabs"] {
-            gap: 60px !important;
-            display: flex;
-            justify-content: flex-start;
-            margin-top: 20px;
+            gap: 100px !important;
+            margin-top: 30px !important;
         }
 
-        /* Style de base : Transformation en rectangles massifs */
-        button[data-testid="stBaseButton-tag"] {
-            border-radius: 5px !important;   /* Forme rectangle net */
-            min-width: 350px !important;     /* Largeur augmentée */
-            height: 80px !important;         /* Hauteur augmentée */
-            font-size: 26px !important;      /* Texte très grand */
-            font-weight: 800 !important;     /* Texte très gras */
+        /* 2. On cible TOUS les onglets de la page pour les transformer en blocs */
+        div[data-testid="stTabs"] button {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 400px !important;      /* Largeur fixe géante */
+            height: 100px !important;     /* Hauteur fixe géante */
+            border-radius: 0px !important; /* Rectangle parfait (pas d'arrondi) */
+            border: 3px solid white !important; /* Contour blanc pour fond noir */
+            margin: 10px !important;
+        }
+
+        /* 3. Style spécifique pour le texte à l'intérieur */
+        div[data-testid="stTabs"] button p {
+            font-size: 28px !important;
+            font-weight: bold !important;
             color: white !important;
-            border: 2px solid #FFFFFF !important; /* Bordure blanche pour contraste sur fond noir */
-            text-transform: uppercase;       /* Majuscules pour le style */
-            transition: 0.3s;
         }
 
-        /* Onglet 1 : PRÉDICTION (VERT FLUO) */
-        button[data-testid="stBaseButton-tag"]:first-child {
-            background-color: #00C851 !important; /* Vert vif */
+        /* 4. COULEUR VERTE pour le premier onglet (Prédiction) */
+        div[data-testid="stTabs"] button[aria-selected="true"]:first-child {
+            background-color: #00FF00 !important; /* Vert Fluo */
+            box-shadow: 0px 0px 25px #00FF00 !important; /* Lueur verte */
+        }
+        div[data-testid="stTabs"] button[aria-selected="false"]:first-child {
+            background-color: #004400 !important; /* Vert foncé (éteint) */
         }
 
-        /* Onglet 2 : PERFORMANCES (BLEU ÉLECTRIQUE) */
-        button[data-testid="stBaseButton-tag"]:last-child {
-            background-color: #007BFF !important; /* Bleu vif */
+        /* 5. COULEUR BLEUE pour le deuxième onglet (Performances) */
+        div[data-testid="stTabs"] button[aria-selected="true"]:last-child {
+            background-color: #0000FF !important; /* Bleu Électrique */
+            box-shadow: 0px 0px 25px #0000FF !important; /* Lueur bleue */
+        }
+        div[data-testid="stTabs"] button[aria-selected="false"]:last-child {
+            background-color: #000044 !important; /* Bleu foncé (éteint) */
         }
 
-        /* État quand l'onglet n'est PAS sélectionné */
-        button[data-testid="stBaseButton-tag"][aria-selected="false"] {
-            opacity: 0.3;                    /* Très sombre pour voir la différence */
-            border: 1px solid #555555 !important;
-        }
-
-        /* État quand l'onglet EST sélectionné */
-        button[data-testid="stBaseButton-tag"][aria-selected="true"] {
-            opacity: 1 !important;
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4) !important; /* Lueur blanche autour */
-            transform: translateY(-5px);     /* Soulèvement visuel */
+        /* Masquer la ligne rouge par défaut de Streamlit sous les onglets */
+        div[data-testid="stTabHighlight"] {
+            display: none !important;
         }
     </style>
 """, unsafe_allow_html=True)
