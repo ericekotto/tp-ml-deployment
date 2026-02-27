@@ -60,7 +60,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 # --- CONFIGURATION DES CHEMINS ---
 MODEL_DIR = "models"
 
