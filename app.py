@@ -10,58 +10,56 @@ st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wid
 # ------------------------------------------------------------------
 # 🖌️ ZONE CSS PERSONNALISÉ POUR STYLISER LES ONG_LETS (RECTANGLES)
 # ------------------------------------------------------------------
-# --- STYLE FORCE POUR RECTANGLES GEANTS ---
+# --- STYLE RECTANGLES GEANTS : VERT ET ROUGE ---
 st.markdown("""
     <style>
-        /* 1. On cible le conteneur global des onglets */
+        /* 1. Espacement entre les onglets */
         div[data-testid="stTabs"] {
-            gap: 100px !important;
-            margin-top: 30px !important;
+            gap: 80px !important;
         }
 
-        /* 2. On cible TOUS les onglets de la page pour les transformer en blocs */
+        /* 2. Style de base des boutons d'onglets (Rectangles) */
         div[data-testid="stTabs"] button {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            width: 400px !important;      /* Largeur fixe géante */
-            height: 100px !important;     /* Hauteur fixe géante */
-            border-radius: 0px !important; /* Rectangle parfait (pas d'arrondi) */
-            border: 3px solid white !important; /* Contour blanc pour fond noir */
-            margin: 10px !important;
+            width: 400px !important;      /* Largeur massive */
+            height: 90px !important;       /* Hauteur massive */
+            border-radius: 0px !important;  /* Rectangle parfait */
+            border: 2px solid white !important; /* Contour pour fond noir */
         }
 
-        /* 3. Style spécifique pour le texte à l'intérieur */
+        /* Style du texte */
         div[data-testid="stTabs"] button p {
-            font-size: 28px !important;
+            font-size: 24px !important;
             font-weight: bold !important;
             color: white !important;
         }
 
-        /* 4. COULEUR VERTE pour le premier onglet (Prédiction) */
-        div[data-testid="stTabs"] button[aria-selected="true"]:first-child {
+        /* --- ONG_LET 1 : PREDICTION (VERT) --- */
+        div[data-testid="stTabs"] button:nth-child(1)[aria-selected="true"] {
             background-color: #00FF00 !important; /* Vert Fluo */
-            box-shadow: 0px 0px 25px #00FF00 !important; /* Lueur verte */
+            box-shadow: 0px 0px 20px #00FF00 !important;
         }
-        div[data-testid="stTabs"] button[aria-selected="false"]:first-child {
-            background-color: #004400 !important; /* Vert foncé (éteint) */
-        }
-
-        /* 5. COULEUR BLEUE pour le deuxième onglet (Performances) */
-        div[data-testid="stTabs"] button[aria-selected="true"]:last-child {
-            background-color: #0000FF !important; /* Bleu Électrique */
-            box-shadow: 0px 0px 25px #0000FF !important; /* Lueur bleue */
-        }
-        div[data-testid="stTabs"] button[aria-selected="false"]:last-child {
-            background-color: #000044 !important; /* Bleu foncé (éteint) */
+        div[data-testid="stTabs"] button:nth-child(1)[aria-selected="false"] {
+            background-color: #004400 !important; /* Vert sombre éteint */
+            opacity: 0.5;
         }
 
-        /* Masquer la ligne rouge par défaut de Streamlit sous les onglets */
+        /* --- ONG_LET 2 : PERFORMANCES ET GRAPHES (ROUGE) --- */
+        div[data-testid="stTabs"] button:nth-child(2)[aria-selected="true"] {
+            background-color: #FF0000 !important; /* ROUGE Vif */
+            box-shadow: 0px 0px 20px #FF0000 !important;
+        }
+        div[data-testid="stTabs"] button:nth-child(2)[aria-selected="false"] {
+            background-color: #440000 !important; /* Rouge sombre éteint */
+            opacity: 0.5;
+        }
+
+        /* Supprimer la petite barre rouge par défaut de Streamlit */
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # --- CONFIGURATION DES CHEMINS ---
 MODEL_DIR = "models"
