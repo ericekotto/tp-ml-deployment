@@ -110,15 +110,52 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-# --- PAGE D'ACCUEIL ---
+# --- PAGE D'ACCUEIL (MISE À JOUR DES DESCRIPTIONS) ---
 if projet == "Accueil":
-    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS, SOYEZ LA BIENVENUE</h1>", unsafe_allow_html=True)
     st.divider()
     
     st.markdown("""
     Bienvenue dans cette interface de démonstration. Cette application regroupe trois modèles de Machine Learning 
-    distincts, illustrant des cas d'usage concrets en entreprise.
+    distincts, illustrant des cas d'usage concrets en entreprise : **Classification socio-économique**, 
+    **Optimisation énergétique** et **Ciblage marketing**.
     """)
+
+    # --- DATASET 1 : CENSUS ---
+    with st.expander("💰 Focus sur le Dataset : Census Income (Adult Dataset)", expanded=True):
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.image("https://www.census.gov/content/dam/Census/public/brand/census-logo-white-on-blue.png", width=150)
+        with col2:
+            st.write("""
+            **Contexte :** Ce dataset permet de prédire si le revenu d'un individu dépasse 50 000 $ par an.
+            **Détails techniques :** Environ 32 000 entrées. Variables clés : Éducation, âge, gain en capital.
+            **Enjeu :** Classification binaire avec déséquilibre de classes.
+            """)
+
+    # --- DATASET 2 : AUTO-MPG ---
+    with st.expander("🚗 Focus sur le Dataset : Auto-MPG (Consommation de Carburant)", expanded=True):
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.write("### ⛽ 📊")
+        with col2:
+            st.write("""
+            **Contexte :** Objectif de prédire l'efficacité énergétique (MPG) d'un véhicule.
+            **Détails techniques :** Régression. Variables clés : Cylindres, poids, puissance, année du modèle.
+            **Enjeu :** Impact technologique sur la réduction de consommation.
+            """)
+
+    # --- DATASET 3 : BANK MARKETING ---
+    with st.expander("🏦 Focus sur le Dataset : Bank Marketing (Marketing Direct)", expanded=True):
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.write("### 📞 🏦")
+        with col2:
+            st.write("""
+            **Contexte :** Prédire si le client va souscrire à un dépôt à terme suite à un appel.
+            **Détails techniques :** Classification. Variable critique : Durée du contact.
+            **Enjeu :** Optimisation des campagnes de marketing direct.
+            """)
 
     # --- DATASET 1 : CENSUS ---
     with st.expander("💰 Focus sur le Dataset : Census Income (Adult Dataset)", expanded=True):
