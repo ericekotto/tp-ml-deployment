@@ -7,6 +7,50 @@ import numpy as np
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
 
+# --- STYLE CSS POUR LES ONGLETS (RECTANGLES 250px) ---
+st.markdown("""
+    <style>
+        /* On cible EXCLUSIVEMENT les boutons qui ont le rôle d'onglet */
+        div[data-testid="stTabs"] button[role="tab"] {
+            width: 250px !important;
+            height: 60px !important;
+            border-radius: 5px !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            margin-right: 20px !important;
+        }
+
+        /* Texte à l'intérieur des onglets */
+        div[data-testid="stTabs"] button[role="tab"] p {
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: white !important;
+        }
+
+        /* ONGLET 1 : PRÉDICTION (VERT) */
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(1)[aria-selected="true"] {
+            background-color: #00C851 !important;
+            box-shadow: 0px 0px 15px rgba(0, 200, 81, 0.4) !important;
+        }
+
+        /* ONGLET 2 : PERFORMANCES (ROUGE) */
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(2)[aria-selected="true"] {
+            background-color: #ff4444 !important;
+            box-shadow: 0px 0px 15px rgba(255, 68, 68, 0.4) !important;
+        }
+
+        /* Style quand l'onglet n'est pas sélectionné */
+        div[data-testid="stTabs"] button[role="tab"][aria-selected="false"] {
+            background-color: #1e1e1e !important;
+            opacity: 0.6;
+        }
+
+        /* MASQUER LA LIGNE ROUGE PAR DÉFAUT DE STREAMLIT */
+        div[data-testid="stTabHighlight"] {
+            display: none !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- CONFIGURATION DES CHEMINS ---
 MODEL_DIR = "models"
 
@@ -64,30 +108,6 @@ if projet == "Accueil":
             **Enjeu :** Classification binaire avec déséquilibre de classes.
             """)
 
-    # --- DATASET 2 : AUTO-MPG ---
-    with st.expander("🚗 Focus sur le Dataset : Auto-MPG (Consommation de Carburant)", expanded=True):
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.write("### ⛽ 📊")
-        with col2:
-            st.write("""
-            **Contexte :** Objectif de prédire l'efficacité énergétique (MPG) d'un véhicule.
-            **Détails techniques :** Régression. Variables clés : Cylindres, poids, puissance, année du modèle.
-            **Enjeu :** Impact technologique sur la réduction de consommation.
-            """)
-
-    # --- DATASET 3 : BANK MARKETING ---
-    with st.expander("🏦 Focus sur le Dataset : Bank Marketing (Marketing Direct)", expanded=True):
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.write("### 📞 🏦")
-        with col2:
-            st.write("""
-            **Contexte :** Prédire si le client va souscrire à un dépôt à terme suite à un appel.
-            **Détails techniques :** Classification. Variable critique : Durée du contact.
-            **Enjeu :** Optimisation des campagnes de marketing direct.
-            """)
-
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
     st.header("📈 Prédiction des Tranches de Revenus (Census)")
@@ -134,8 +154,6 @@ elif projet == "1. Census (Revenus)":
 # --- PROJET 2 : AUTO-MPG ---
 elif projet == "2. Auto-MPG (Consommation)":
     st.header("🚗 Estimation de la Consommation (Auto-MPG)")
-    
-    # CRÉATION DES ONGLETS
     tab1, tab2 = st.tabs(["🎯 Prédiction", "📊 Performances et Graphes"])
 
     with tab1:
@@ -166,16 +184,9 @@ elif projet == "2. Auto-MPG (Consommation)":
         m1.metric("R² Score", "0.82", "Bonne prévisibilité")
         m2.metric("Erreur (MAE)", "2.1 MPG")
 
-        st.write("**Courbe des Résidus (Simulation)**")
-        residus = pd.DataFrame(np.random.normal(0, 1, 50), columns=['Erreur de prédiction'])
-        st.line_chart(residus)
-        st.info("Le modèle suit une distribution normale des erreurs, ce qui valide la régression.")
-
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
     st.header("🏦 Marketing Bancaire")
-    
-    # CRÉATION DES ONGLETS
     tab1, tab2 = st.tabs(["🎯 Prédiction", "📊 Performances et Graphes"])
 
     with tab1:
@@ -202,13 +213,10 @@ elif projet == "3. Bank Marketing (Souscription)":
         st.subheader("🎯 Analyse de Classification")
         st.info("Algorithme utilisé : **Logistic Regression**")
         st.metric("Score AUC-ROC", "0.91", "+0.05 vs baseline")
-        
         col_b1, col_b2 = st.columns(2)
         with col_b1:
-            st.write("**Matrice de Confusion**")
             conf_matrix = pd.DataFrame([[3900, 100], [200, 400]], index=['Réalité: Non', 'Réalité: Oui'], columns=['Prédit: Non', 'Prédit: Oui'])
             st.table(conf_matrix)
         with col_b2:
             st.write("**Probabilité de succès**")
             st.progress(float(proba[0][1]))
-            st.write(f"Confiance : {proba[0][1]:.1%}")
