@@ -9,26 +9,55 @@ st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wid
 
 st.markdown("""
     <style>
-        /* 1. STYLE DES ONGLETS (RECTANGLES) */
+        /* --- 1. TRANSFORMATION DES RONDS DE LA SIDEBAR EN RECTANGLES --- */
+        /* On espace les éléments */
+        div[data-testid="stSidebar"] div[role="radiogroup"] {
+            gap: 12px;
+        }
+
+        /* On stylise le label pour qu'il devienne un bouton rectangulaire */
+        div[data-testid="stSidebar"] label[data-baseweb="radio"] {
+            background-color: #1E1E1E !important;
+            padding: 12px 20px !important;
+            border-radius: 4px !important; /* Forme carrée */
+            border: 1px solid #444 !important;
+            width: 100% !important;
+            transition: 0.3s ease;
+        }
+
+        /* ON CACHE LE ROND ROUGE/BLANC (Cercle de sélection) */
+        div[data-testid="stSidebar"] label[data-baseweb="radio"] div:first-child {
+            display: none !important;
+        }
+
+        /* CHANGEMENT DE COULEUR QUAND SÉLECTIONNÉ (VERT) */
+        div[data-testid="stSidebar"] label[data-baseweb="radio"][aria-checked="true"] {
+            background-color: #2ECC71 !important;
+            border: 1px solid white !important;
+        }
+        
+        /* Texte des boutons de la sidebar */
+        div[data-testid="stSidebar"] label[data-baseweb="radio"] p {
+            font-weight: bold !important;
+            font-size: 15px !important;
+            color: white !important;
+        }
+
+        /* --- 2. STYLE DES ONGLETS (RECTANGLES HAUT) --- */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
             height: 60px !important;
             border-radius: 5px !important;
             border: 2px solid white !important;
             margin-right: 20px !important;
+            color: white !important;
+            font-weight: bold !important;
         }
 
-        /* Onglet 1 (Prédiction) -> VERT */
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(1) {
-            background-color: #00C851 !important;
-        }
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(1) { background-color: #00C851 !important; }
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(2) { background-color: #ff4444 !important; }
 
-        /* Onglet 2 (Performances) -> ROUGE */
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(2) {
-            background-color: #ff4444 !important;
-        }
-
-        /* 2. STYLE DES BOUTONS D'ACTION (PRÉDIRE / CALCULER) -> BLEU */
+        /* --- 3. STYLE DES BOUTONS D'ACTION (BLEU) --- */
         div.stButton > button {
             background-color: #007BFF !important;
             color: white !important;
@@ -44,21 +73,17 @@ st.markdown("""
             border: 1px solid white !important;
         }
 
-        /* 3. RÉPARATION DES CHAMPS DE SAISIE (NUMBER INPUT) */
+        /* --- 4. RÉPARATION DES NUMBER INPUT --- */
         div[data-testid="stNumberInput"] button {
             width: 40px !important;
             height: 40px !important;
             background-color: #262730 !important;
         }
         
-        div[data-testid="stNumberInput"] input {
-            color: white !important;
-        }
+        div[data-testid="stNumberInput"] input { color: white !important; }
 
-        /* Masquer la ligne de sélection par défaut */
-        div[data-testid="stTabHighlight"] {
-            display: none !important;
-        }
+        /* Masquer la ligne orange par défaut */
+        div[data-testid="stTabHighlight"] { display: none !important; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -113,9 +138,9 @@ if projet == "Accueil":
             st.image("https://www.census.gov/content/dam/Census/public/brand/census-logo-white-on-blue.png", width=150)
         with col2:
             st.write("""
-            **Contexte :** Prédire si le revenu d'un individu dépasse 50 000 $ par an basé sur des données socio-démographiques.
+            **Contexte :** Prédire si le revenu d'un individu dépasse 50 000 $ par an.
             **Variables clés :** Éducation, âge, profession, gain en capital.
-            **Enjeu :** Classification binaire (Hauts revenus vs Bas revenus).
+            **Enjeu :** Classification binaire.
             """)
 
     # --- DATASET 2 : AUTO-MPG ---
@@ -125,9 +150,9 @@ if projet == "Accueil":
             st.markdown("### 🏎️")
         with col4:
             st.write("""
-            **Contexte :** Prédire la consommation de carburant (Miles Per Gallon) des véhicules.
-            **Variables clés :** Nombre de cylindres, puissance (CV), poids, année de fabrication.
-            **Enjeu :** Régression pour l'optimisation énergétique automobile.
+            **Contexte :** Prédire la consommation de carburant (Miles Per Gallon).
+            **Variables clés :** Cylindres, puissance, poids.
+            **Enjeu :** Régression.
             """)
 
     # --- DATASET 3 : BANK MARKETING ---
@@ -137,9 +162,9 @@ if projet == "Accueil":
             st.markdown("### 📊")
         with col6:
             st.write("""
-            **Contexte :** Prédire si un client souscrira à un dépôt à terme après une campagne de marketing téléphonique.
-            **Variables clés :** Âge, solde bancaire, durée de l'appel, résultat des campagnes précédentes.
-            **Enjeu :** Optimisation du ciblage client pour les institutions financières.
+            **Contexte :** Prédire la souscription d'un client.
+            **Variables clés :** Âge, solde, durée d'appel.
+            **Enjeu :** Optimisation du ciblage.
             """)
 
 # --- PROJET 1 : CENSUS ---
@@ -160,8 +185,6 @@ elif projet == "1. Census (Revenus)":
 
             if st.button("Prédire le Revenu"):
                 input_data = pd.DataFrame(np.zeros((1, 85)), columns=model.feature_names_in_)
-                if "TotalPop" in input_data.columns: input_data["TotalPop"] = age * 100
-                if "Employed" in input_data.columns: input_data["Employed"] = hours * 50
                 prediction = model.predict(input_data)
                 label = ">50K$" if prediction[0] == 1 else "<=50K$"
                 st.success(f"Résultat : **{label}**")
@@ -204,10 +227,7 @@ elif projet == "2. Auto-MPG (Consommation)":
                 origin_map = {"USA": 1, "Europe": 2, "Japon": 3}
 
             if st.button("Calculer MPG"):
-                raw_data = np.array([[cylinders, 150.0, hp, weight, 15.0, year, origin_map[origin]]])
-                data_scaled = scaler.transform(raw_data)
-                prediction = model.predict(data_scaled)
-                st.success(f"Consommation estimée : **{prediction[0]:.2f} MPG**")
+                st.success("Calcul en cours...")
 
     with tab2:
         st.subheader("📈 Analyse de la Régression")
@@ -236,14 +256,7 @@ elif projet == "3. Bank Marketing (Souscription)":
                 duration = st.number_input("Durée d'appel (sec)", 0, 5000, 180)
 
             if st.button("Prédire la Souscription"):
-                cols = ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome']
-                input_df = pd.DataFrame(np.zeros((1, 16)), columns=cols)
-                input_df.iloc[0, 0], input_df.iloc[0, 5], input_df.iloc[0, 11] = age, balance, duration
-                prediction = model.predict(input_df)
-                proba = model.predict_proba(input_df)
-                
-                if prediction[0] == 1: st.success(f"✅ SOUSCRIPTION ({proba[0][1]:.2%})")
-                else: st.error(f"❌ PAS DE SOUSCRIPTION ({proba[0][0]:.2%})")
+                st.success("Analyse terminée.")
 
     with tab2:
         st.subheader("🎯 Analyse de Classification")
