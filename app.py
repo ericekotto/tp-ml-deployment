@@ -9,7 +9,7 @@ st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wid
 
 st.markdown("""
     <style>
-        /* 1. STYLE DES ONG_LETS (RECTANGLES) */
+        /* 1. STYLE DES ONGLETS (RECTANGLES) */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
             height: 60px !important;
@@ -55,6 +55,7 @@ st.markdown("""
             color: white !important;
         }
 
+        /* Masquer la ligne de sélection par défaut */
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
@@ -97,24 +98,48 @@ st.sidebar.markdown(
 
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
-    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS, SOYEZ LA BIENVENUE</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
     st.divider()
     
     st.markdown("""
     Bienvenue dans cette interface de démonstration. Cette application regroupe trois modèles de Machine Learning 
-    distincts, illustrant des cas d'usage concrets en entreprise : **Classification socio-économique**, 
-    **Optimisation énergétique** et **Ciblage marketing**.
+    distincts, illustrant des cas d'usage concrets en entreprise.
     """)
 
+    # --- DATASET 1 : CENSUS ---
     with st.expander("💰 Focus sur le Dataset : Census Income (Adult Dataset)", expanded=True):
         col1, col2 = st.columns([1, 2])
         with col1:
             st.image("https://www.census.gov/content/dam/Census/public/brand/census-logo-white-on-blue.png", width=150)
         with col2:
             st.write("""
-            **Contexte :** Ce dataset permet de prédire si le revenu d'un individu dépasse 50 000 $ par an.
-            **Détails techniques :** Environ 32 000 entrées. Variables clés : Éducation, âge, gain en capital.
-            **Enjeu :** Classification binaire avec déséquilibre de classes.
+            **Contexte :** Prédire si le revenu d'un individu dépasse 50 000 $ par an basé sur des données socio-démographiques.
+            **Variables clés :** Éducation, âge, profession, gain en capital.
+            **Enjeu :** Classification binaire (Hauts revenus vs Bas revenus).
+            """)
+
+    # --- DATASET 2 : AUTO-MPG ---
+    with st.expander("🚗 Focus sur le Dataset : Auto-MPG (Performance énergétique)", expanded=True):
+        col3, col4 = st.columns([1, 2])
+        with col3:
+            st.markdown("### 🏎️")
+        with col4:
+            st.write("""
+            **Contexte :** Prédire la consommation de carburant (Miles Per Gallon) des véhicules.
+            **Variables clés :** Nombre de cylindres, puissance (CV), poids, année de fabrication.
+            **Enjeu :** Régression pour l'optimisation énergétique automobile.
+            """)
+
+    # --- DATASET 3 : BANK MARKETING ---
+    with st.expander("🏦 Focus sur le Dataset : Bank Marketing (Marketing Direct)", expanded=True):
+        col5, col6 = st.columns([1, 2])
+        with col5:
+            st.markdown("### 📊")
+        with col6:
+            st.write("""
+            **Contexte :** Prédire si un client souscrira à un dépôt à terme après une campagne de marketing téléphonique.
+            **Variables clés :** Âge, solde bancaire, durée de l'appel, résultat des campagnes précédentes.
+            **Enjeu :** Optimisation du ciblage client pour les institutions financières.
             """)
 
 # --- PROJET 1 : CENSUS ---
@@ -149,7 +174,6 @@ elif projet == "1. Census (Revenus)":
         c2.metric("F1-Score", "0.79")
         c3.metric("Rappel", "0.76")
         c4.metric("Précision (Precision)", "0.82")
-
         col_g1, col_g2 = st.columns(2)
         with col_g1:
             st.write("**Matrice de Confusion**")
@@ -192,7 +216,6 @@ elif projet == "2. Auto-MPG (Consommation)":
         m1.metric("R² Score", "0.82", "Performance élevée")
         m2.metric("Erreur (MAE)", "2.1 MPG")
         m3.metric("Erreur (RMSE)", "2.8 MPG")
-
         st.write("**Relation Poids vs Consommation (Tendance)**")
         chart_data = pd.DataFrame(np.random.randn(20, 2), columns=['Poids', 'MPG'])
         st.scatter_chart(chart_data)
@@ -207,7 +230,7 @@ elif projet == "3. Bank Marketing (Souscription)":
         if model:
             colA, colB = st.columns(2)
             with colA:
-                age = st.number_input("Âge", 18, 100, 35)
+                age = st.number_input("Âge ", 18, 100, 35)
                 balance = st.number_input("Solde", -3000, 100000, 1000)
             with colB:
                 duration = st.number_input("Durée d'appel (sec)", 0, 5000, 180)
@@ -215,7 +238,7 @@ elif projet == "3. Bank Marketing (Souscription)":
             if st.button("Prédire la Souscription"):
                 cols = ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome']
                 input_df = pd.DataFrame(np.zeros((1, 16)), columns=cols)
-                input_df['age'], input_df['balance'], input_df['duration'] = age, balance, duration
+                input_df.iloc[0, 0], input_df.iloc[0, 5], input_df.iloc[0, 11] = age, balance, duration
                 prediction = model.predict(input_df)
                 proba = model.predict_proba(input_df)
                 
@@ -226,7 +249,6 @@ elif projet == "3. Bank Marketing (Souscription)":
         st.subheader("🎯 Analyse de Classification")
         st.info("Algorithme utilisé : **Logistic Regression**")
         st.metric("Score AUC-ROC", "0.91", "+0.05 vs baseline")
-        
         col_b1, col_b2 = st.columns(2)
         with col_b1:
             st.write("**Matrice de Confusion**")
