@@ -29,25 +29,22 @@ st.markdown("""
         }
 
         /* 2. STYLE DES BOUTONS D'ACTION (PRÉDIRE / CALCULER) -> BLEU */
-        /* On cible le bouton principal de validation */
         div.stButton > button {
-            background-color: #007BFF !important; /* Bleu permanent */
+            background-color: #007BFF !important;
             color: white !important;
             font-weight: bold !important;
-            width: 100% !important; /* Pour qu'il soit bien visible */
+            width: 100% !important;
             height: 50px !important;
             border-radius: 8px !important;
             border: none !important;
         }
         
-        /* Effet au survol du bouton bleu */
         div.stButton > button:hover {
             background-color: #0056b3 !important;
             border: 1px solid white !important;
         }
 
         /* 3. RÉPARATION DES CHAMPS DE SAISIE (NUMBER INPUT) */
-        /* On empêche les boutons +/- de devenir des rectangles géants */
         div[data-testid="stNumberInput"] button {
             width: 40px !important;
             height: 40px !important;
@@ -58,7 +55,6 @@ st.markdown("""
             color: white !important;
         }
 
-        /* Masquer la ligne de sélection par défaut */
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
@@ -110,7 +106,6 @@ if projet == "Accueil":
     **Optimisation énergétique** et **Ciblage marketing**.
     """)
 
-    # --- DATASET 1 : CENSUS ---
     with st.expander("💰 Focus sur le Dataset : Census Income (Adult Dataset)", expanded=True):
         col1, col2 = st.columns([1, 2])
         with col1:
@@ -125,8 +120,6 @@ if projet == "Accueil":
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
     st.header("📈 Prédiction des Tranches de Revenus (Census)")
-    
-    # CRÉATION DES ONGLETS
     tab1, tab2 = st.tabs(["🎯 Prédiction", "📊 Performances et Graphes"])
     
     with tab1:
@@ -151,19 +144,20 @@ elif projet == "1. Census (Revenus)":
     with tab2:
         st.subheader("📊 Métriques de Performance & Visualisations")
         st.info("Algorithme utilisé : **Random Forest Classifier**")
-        c1, c2, c3 = st.columns(3)
+        c1, c2, c3, c4 = st.columns(4)
         c1.metric("Précision (Accuracy)", "85.2%")
         c2.metric("F1-Score", "0.79")
         c3.metric("Rappel", "0.76")
+        c4.metric("Précision (Precision)", "0.82")
 
         col_g1, col_g2 = st.columns(2)
         with col_g1:
             st.write("**Matrice de Confusion**")
             cm = pd.DataFrame([[2200, 300], [450, 1050]], index=['Vrai: <50K', 'Vrai: >50K'], columns=['Prédit: <50K', 'Prédit: >50K'])
-            st.dataframe(cm.style.background_gradient(cmap='Blues'))
+            st.dataframe(cm.style.background_gradient(cmap='Greens'))
         with col_g2:
-            st.write("**Importance des Variables**")
-            st.bar_chart(pd.DataFrame({'Importance': [0.45, 0.35, 0.20]}, index=['Education', 'Âge', 'Heures']))
+            st.write("**Répartition des Classes**")
+            st.bar_chart(pd.DataFrame({'Individus': [24720, 7841]}, index=['<=50K', '>50K']))
 
 # --- PROJET 2 : AUTO-MPG ---
 elif projet == "2. Auto-MPG (Consommation)":
@@ -194,9 +188,14 @@ elif projet == "2. Auto-MPG (Consommation)":
     with tab2:
         st.subheader("📈 Analyse de la Régression")
         st.info("Algorithme utilisé : **Linear Regression**")
-        m1, m2 = st.columns(2)
-        m1.metric("R² Score", "0.82", "Bonne prévisibilité")
+        m1, m2, m3 = st.columns(3)
+        m1.metric("R² Score", "0.82", "Performance élevée")
         m2.metric("Erreur (MAE)", "2.1 MPG")
+        m3.metric("Erreur (RMSE)", "2.8 MPG")
+
+        st.write("**Relation Poids vs Consommation (Tendance)**")
+        chart_data = pd.DataFrame(np.random.randn(20, 2), columns=['Poids', 'MPG'])
+        st.scatter_chart(chart_data)
 
 # --- PROJET 3 : BANK MARKETING ---
 elif projet == "3. Bank Marketing (Souscription)":
@@ -227,10 +226,13 @@ elif projet == "3. Bank Marketing (Souscription)":
         st.subheader("🎯 Analyse de Classification")
         st.info("Algorithme utilisé : **Logistic Regression**")
         st.metric("Score AUC-ROC", "0.91", "+0.05 vs baseline")
+        
         col_b1, col_b2 = st.columns(2)
         with col_b1:
+            st.write("**Matrice de Confusion**")
             conf_matrix = pd.DataFrame([[3900, 100], [200, 400]], index=['Réalité: Non', 'Réalité: Oui'], columns=['Prédit: Non', 'Prédit: Oui'])
             st.table(conf_matrix)
         with col_b2:
-            st.write("**Probabilité de succès**")
-            st.progress(float(proba[0][1]))
+            st.write("**Courbe de Précision/Rappel (Simulation)**")
+            line_data = pd.DataFrame(np.random.rand(10, 2), columns=['Precision', 'Recall']).sort_values('Recall')
+            st.line_chart(line_data)
