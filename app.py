@@ -9,19 +9,25 @@ st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wid
 
 st.markdown("""
     <style>
-        /* --- 1. TRANSFORMATION DES RONDS DE LA SIDEBAR EN RECTANGLES (FIX) --- */
+        /* --- 1. TRANSFORMATION DES RONDS EN RECTANGLES BLEUS --- */
         [data-testid="stSidebar"] div[role="radiogroup"] {
             gap: 12px;
         }
 
-        /* Style du conteneur radio */
+        /* Style de base : RECTANGLE BLEU */
         [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] {
-            background-color: #262730 !important;
+            background-color: #007BFF !important; /* Bleu principal */
             padding: 12px 20px !important;
             border-radius: 4px !important;
-            border: 1px solid #444 !important;
+            border: 1px solid #0056b3 !important;
             width: 100% !important;
             transition: 0.3s ease;
+        }
+
+        /* Effet au survol (S'éclaircit un peu) */
+        [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"]:hover {
+            background-color: #0069d9 !important;
+            border-color: white !important;
         }
 
         /* Suppression du bouton rond d'origine */
@@ -29,10 +35,11 @@ st.markdown("""
             display: none !important;
         }
 
-        /* Couleur quand sélectionné (VERT) */
+        /* Style quand SÉLECTIONNÉ (Bleu plus foncé ou Bordure épaisse) */
         [data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"] {
-            background-color: #2ECC71 !important;
-            border: 1px solid white !important;
+            background-color: #004085 !important; /* Bleu foncé pour la sélection */
+            border: 2px solid #FFFFFF !important;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
         /* Texte des boutons Sidebar */
@@ -42,7 +49,7 @@ st.markdown("""
             font-size: 15px !important;
         }
 
-        /* --- 2. STYLE DES ONGLETS (RECTANGLES) --- */
+        /* --- 2. STYLE DES ONGLETS DU HAUT (RESTE INCHANGÉ) --- */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
             height: 60px !important;
@@ -51,14 +58,10 @@ st.markdown("""
             margin-right: 20px !important;
             color: white !important;
         }
-
-        /* Onglet 1 (Prédiction) -> VERT */
         div[data-testid="stTabs"] button[role="tab"]:nth-child(1) { background-color: #00C851 !important; }
-
-        /* Onglet 2 (Performances) -> ROUGE */
         div[data-testid="stTabs"] button[role="tab"]:nth-child(2) { background-color: #ff4444 !important; }
 
-        /* --- 3. STYLE DES BOUTONS D'ACTION (BLEU) --- */
+        /* --- 3. STYLE DES BOUTONS D'ACTION BLEU --- */
         div.stButton > button {
             background-color: #007BFF !important;
             color: white !important;
@@ -66,24 +69,9 @@ st.markdown("""
             width: 100% !important;
             height: 50px !important;
             border-radius: 8px !important;
-            border: none !important;
-        }
-        
-        div.stButton > button:hover {
-            background-color: #0056b3 !important;
-            border: 1px solid white !important;
         }
 
-        /* --- 4. RÉPARATION DES CHAMPS DE SAISIE (NUMBER INPUT) --- */
-        div[data-testid="stNumberInput"] button {
-            width: 40px !important;
-            height: 40px !important;
-            background-color: #262730 !important;
-        }
-        
-        div[data-testid="stNumberInput"] input { color: white !important; }
-
-        /* Masquer la ligne de sélection par défaut */
+        /* Masquer la ligne orange de Streamlit */
         div[data-testid="stTabHighlight"] { display: none !important; }
     </style>
 """, unsafe_allow_html=True)
