@@ -11,49 +11,53 @@ st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wid
 # 🖌️ ZONE CSS PERSONNALISÉ POUR STYLISER LES ONG_LETS (RECTANGLES)
 # ------------------------------------------------------------------
 # --- STYLE RECTANGLES GEANTS : VERT ET ROUGE ---
+# --- STYLE RECTANGLES AJUSTÉS (TAILLE RÉDUITE) ---
 st.markdown("""
     <style>
         /* 1. Espacement entre les onglets */
         div[data-testid="stTabs"] {
-            gap: 80px !important;
+            gap: 40px !important;
+            justify-content: center !important; /* Centre les onglets pour un meilleur rendu */
         }
 
-        /* 2. Style de base des boutons d'onglets (Rectangles) */
+        /* 2. Style de base des boutons (Taille réduite) */
         div[data-testid="stTabs"] button {
-            width: 400px !important;      /* Largeur massive */
-            height: 90px !important;       /* Hauteur massive */
-            border-radius: 0px !important;  /* Rectangle parfait */
-            border: 2px solid white !important; /* Contour pour fond noir */
+            width: 250px !important;      /* Largeur réduite (était 400) */
+            height: 60px !important;       /* Hauteur réduite (était 90) */
+            border-radius: 4px !important;  /* Petit arrondi pour le style */
+            border: 1px solid rgba(255, 255, 255, 0.3) !important; /* Bordure plus fine */
         }
 
-        /* Style du texte */
+        /* Style du texte ajusté */
         div[data-testid="stTabs"] button p {
-            font-size: 24px !important;
-            font-weight: bold !important;
+            font-size: 18px !important;    /* Texte un peu plus petit */
+            font-weight: 600 !important;
             color: white !important;
         }
 
-        /* --- ONG_LET 1 : PREDICTION (VERT) --- */
+        /* --- ONGLET 1 : PREDICTION (VERT) --- */
         div[data-testid="stTabs"] button:nth-child(1)[aria-selected="true"] {
-            background-color: #00FF00 !important; /* Vert Fluo */
-            box-shadow: 0px 0px 20px #00FF00 !important;
+            background-color: #00C851 !important; 
+            box-shadow: 0px 0px 15px rgba(0, 200, 81, 0.5) !important;
+            border: 1px solid white !important;
         }
         div[data-testid="stTabs"] button:nth-child(1)[aria-selected="false"] {
-            background-color: #004400 !important; /* Vert sombre éteint */
-            opacity: 0.5;
+            background-color: #003311 !important; 
+            opacity: 0.6;
         }
 
-        /* --- ONG_LET 2 : PERFORMANCES ET GRAPHES (ROUGE) --- */
+        /* --- ONGLET 2 : PERFORMANCES ET GRAPHES (ROUGE) --- */
         div[data-testid="stTabs"] button:nth-child(2)[aria-selected="true"] {
-            background-color: #FF0000 !important; /* ROUGE Vif */
-            box-shadow: 0px 0px 20px #FF0000 !important;
+            background-color: #ff4444 !important; 
+            box-shadow: 0px 0px 15px rgba(255, 68, 68, 0.5) !important;
+            border: 1px solid white !important;
         }
         div[data-testid="stTabs"] button:nth-child(2)[aria-selected="false"] {
-            background-color: #440000 !important; /* Rouge sombre éteint */
-            opacity: 0.5;
+            background-color: #330000 !important; 
+            opacity: 0.6;
         }
 
-        /* Supprimer la petite barre rouge par défaut de Streamlit */
+        /* Supprimer la barre de soulignement par défaut */
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
