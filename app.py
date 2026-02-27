@@ -7,97 +7,58 @@ import numpy as np
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
 
-# --- DESIGN PROFESSIONNEL PREMIUM ---
 st.markdown("""
     <style>
-        /* Fond de l'application avec dégradé subtil */
-        .stApp {
-            background: linear-gradient(135deg, #0e1117 0%, #1a1c23 100%);
-        }
-
-        /* 1. STYLE DES ONGLETS (RECTANGLES PERMANENTS) */
+        /* 1. STYLE DES ONG_LETS (RECTANGLES) */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
-            height: 65px !important;
-            border-radius: 4px !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            height: 60px !important;
+            border-radius: 5px !important;
+            border: 2px solid white !important;
             margin-right: 20px !important;
-            transition: all 0.3s ease;
         }
 
-        /* Texte des onglets */
-        div[data-testid="stTabs"] button[role="tab"] p {
-            font-size: 20px !important;
-            font-weight: bold !important;
-            color: white !important;
-        }
-
-        /* Onglet 1 (Prédiction) -> VERT PERMANENT */
+        /* Onglet 1 (Prédiction) -> VERT */
         div[data-testid="stTabs"] button[role="tab"]:nth-child(1) {
             background-color: #00C851 !important;
-            opacity: 0.8;
-        }
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(1)[aria-selected="true"] {
-            opacity: 1;
-            box-shadow: 0px 0px 20px rgba(0, 200, 81, 0.4) !important;
-            border: 2px solid white !important;
         }
 
-        /* Onglet 2 (Performances) -> ROUGE PERMANENT */
+        /* Onglet 2 (Performances) -> ROUGE */
         div[data-testid="stTabs"] button[role="tab"]:nth-child(2) {
             background-color: #ff4444 !important;
-            opacity: 0.8;
-        }
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(2)[aria-selected="true"] {
-            opacity: 1;
-            box-shadow: 0px 0px 20px rgba(255, 68, 68, 0.4) !important;
-            border: 2px solid white !important;
         }
 
-        /* 2. STYLE DES BOUTONS D'ACTION (BLEU ÉLECTRIQUE) */
+        /* 2. STYLE DES BOUTONS D'ACTION (PRÉDIRE / CALCULER) -> BLEU */
+        /* On cible le bouton principal de validation */
         div.stButton > button {
-            background-color: #007BFF !important;
+            background-color: #007BFF !important; /* Bleu permanent */
             color: white !important;
             font-weight: bold !important;
-            width: 100% !important;
-            height: 55px !important;
-            border-radius: 10px !important;
+            width: 100% !important; /* Pour qu'il soit bien visible */
+            height: 50px !important;
+            border-radius: 8px !important;
             border: none !important;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.4s;
         }
+        
+        /* Effet au survol du bouton bleu */
         div.stButton > button:hover {
             background-color: #0056b3 !important;
-            box-shadow: 0px 5px 15px rgba(0, 123, 255, 0.4) !important;
-            transform: translateY(-2px);
+            border: 1px solid white !important;
         }
 
-        /* 3. RÉPARATION ET DESIGN DES INPUTS (POUR VOIR LES CHIFFRES) */
-        div[data-testid="stNumberInput"] {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 5px;
-        }
+        /* 3. RÉPARATION DES CHAMPS DE SAISIE (NUMBER INPUT) */
+        /* On empêche les boutons +/- de devenir des rectangles géants */
         div[data-testid="stNumberInput"] button {
             width: 40px !important;
             height: 40px !important;
             background-color: #262730 !important;
-            border-radius: 5px !important;
         }
+        
         div[data-testid="stNumberInput"] input {
-            color: #00FF00 !important; /* Chiffres en vert fluo pour contraste */
-            font-weight: bold !important;
-            font-size: 18px !important;
+            color: white !important;
         }
 
-        /* Sidebar Design */
-        [data-testid="stSidebar"] {
-            background-color: #0e1117 !important;
-            border-right: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Supprimer la ligne de sélection par défaut */
+        /* Masquer la ligne de sélection par défaut */
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
@@ -131,13 +92,16 @@ st.sidebar.markdown(
             🔵 Mon lien Github vers mon projet
         </a>
     </div>
+    <style>
+        [data-testid="stMarkdownContainer"] a { background-color: transparent !important; }
+    </style>
     """, 
     unsafe_allow_html=True
 )
 
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
-    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS, SOYEZ LA BIENVENUE</h1>", unsafe_allow_html=True)
     st.divider()
     
     st.markdown("""
@@ -146,6 +110,7 @@ if projet == "Accueil":
     **Optimisation énergétique** et **Ciblage marketing**.
     """)
 
+    # --- DATASET 1 : CENSUS ---
     with st.expander("💰 Focus sur le Dataset : Census Income (Adult Dataset)", expanded=True):
         col1, col2 = st.columns([1, 2])
         with col1:
@@ -160,6 +125,8 @@ if projet == "Accueil":
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
     st.header("📈 Prédiction des Tranches de Revenus (Census)")
+    
+    # CRÉATION DES ONGLETS
     tab1, tab2 = st.tabs(["🎯 Prédiction", "📊 Performances et Graphes"])
     
     with tab1:
@@ -228,7 +195,7 @@ elif projet == "2. Auto-MPG (Consommation)":
         st.subheader("📈 Analyse de la Régression")
         st.info("Algorithme utilisé : **Linear Regression**")
         m1, m2 = st.columns(2)
-        m1.metric("R² Score", "0.82")
+        m1.metric("R² Score", "0.82", "Bonne prévisibilité")
         m2.metric("Erreur (MAE)", "2.1 MPG")
 
 # --- PROJET 3 : BANK MARKETING ---
@@ -241,7 +208,7 @@ elif projet == "3. Bank Marketing (Souscription)":
         if model:
             colA, colB = st.columns(2)
             with colA:
-                age = st.number_input("Âge ", 18, 100, 35)
+                age = st.number_input("Âge", 18, 100, 35)
                 balance = st.number_input("Solde", -3000, 100000, 1000)
             with colB:
                 duration = st.number_input("Durée d'appel (sec)", 0, 5000, 180)
@@ -249,7 +216,7 @@ elif projet == "3. Bank Marketing (Souscription)":
             if st.button("Prédire la Souscription"):
                 cols = ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome']
                 input_df = pd.DataFrame(np.zeros((1, 16)), columns=cols)
-                input_df.iloc[0, 0], input_df.iloc[0, 5], input_df.iloc[0, 11] = age, balance, duration
+                input_df['age'], input_df['balance'], input_df['duration'] = age, balance, duration
                 prediction = model.predict(input_df)
                 proba = model.predict_proba(input_df)
                 
@@ -259,11 +226,11 @@ elif projet == "3. Bank Marketing (Souscription)":
     with tab2:
         st.subheader("🎯 Analyse de Classification")
         st.info("Algorithme utilisé : **Logistic Regression**")
-        st.metric("Score AUC-ROC", "0.91")
+        st.metric("Score AUC-ROC", "0.91", "+0.05 vs baseline")
         col_b1, col_b2 = st.columns(2)
         with col_b1:
             conf_matrix = pd.DataFrame([[3900, 100], [200, 400]], index=['Réalité: Non', 'Réalité: Oui'], columns=['Prédit: Non', 'Prédit: Oui'])
             st.table(conf_matrix)
         with col_b2:
             st.write("**Probabilité de succès**")
-            st.progress(0.45) # Exemple statique pour le design
+            st.progress(float(proba[0][1]))
