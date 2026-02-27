@@ -7,44 +7,61 @@ import numpy as np
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
 
-# --- STYLE CSS POUR LES ONGLETS (RECTANGLES 250px) ---
+# --- STYLE FINAL : COULEURS PERMANENTES ET PROTECTION DES INPUTS ---
 st.markdown("""
     <style>
-        /* On cible EXCLUSIVEMENT les boutons qui ont le rôle d'onglet */
+        /* 1. Configuration de la barre d'onglets */
+        div[data-testid="stTabs"] {
+            gap: 50px !important;
+        }
+
+        /* 2. Style de base des boutons d'onglets (Rectangles) */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
             height: 60px !important;
             border-radius: 5px !important;
-            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            border: 2px solid white !important;
             margin-right: 20px !important;
+            opacity: 0.8; /* Légèrement transparent par défaut pour le look */
         }
 
-        /* Texte à l'intérieur des onglets */
+        /* Texte des onglets */
         div[data-testid="stTabs"] button[role="tab"] p {
             font-size: 18px !important;
             font-weight: bold !important;
             color: white !important;
         }
 
-        /* ONGLET 1 : PRÉDICTION (VERT) */
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(1)[aria-selected="true"] {
-            background-color: #00C851 !important;
-            box-shadow: 0px 0px 15px rgba(0, 200, 81, 0.4) !important;
+        /* --- ONGLET 1 : TOUJOURS VERT --- */
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(1) {
+            background-color: #00C851 !important; /* Vert permanent */
         }
 
-        /* ONGLET 2 : PERFORMANCES (ROUGE) */
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(2)[aria-selected="true"] {
-            background-color: #ff4444 !important;
-            box-shadow: 0px 0px 15px rgba(255, 68, 68, 0.4) !important;
+        /* --- ONGLET 2 : TOUJOURS ROUGE --- */
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(2) {
+            background-color: #ff4444 !important; /* Rouge permanent */
         }
 
-        /* Style quand l'onglet n'est pas sélectionné */
-        div[data-testid="stTabs"] button[role="tab"][aria-selected="false"] {
-            background-color: #1e1e1e !important;
-            opacity: 0.6;
+        /* Effet quand l'onglet est sélectionné : il devient très brillant */
+        div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+            opacity: 1 !important;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5) !important;
+            border: 3px solid white !important;
         }
 
-        /* MASQUER LA LIGNE ROUGE PAR DÉFAUT DE STREAMLIT */
+        /* 3. PROTECTION DES INPUTS (POUR VOIR LES CHIFFRES) */
+        /* On s'assure que les boutons + et - des number_input ne sont pas touchés */
+        div[data-testid="stNumberInput"] button {
+            width: 40px !important;
+            height: 40px !important;
+            background-color: #262730 !important;
+        }
+        
+        div[data-testid="stNumberInput"] input {
+            color: white !important;
+        }
+
+        /* Supprimer la ligne rouge par défaut de Streamlit */
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
