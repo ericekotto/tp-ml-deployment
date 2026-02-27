@@ -5,60 +5,7 @@ import os
 import numpy as np
 
 # 1. CONFIGURATION DE LA PAGE
-# --- STYLE CORRIGÉ : CIBLE UNIQUEMENT LES ONGLETS ---
-st.markdown("""
-    <style>
-        /* 1. On cible uniquement les boutons DANS la barre d'onglets */
-        div[data-testid="stTabs"] button {
-            width: 250px !important;
-            height: 60px !important;
-            border-radius: 4px !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        }
-
-        /* Style du texte des onglets */
-        div[data-testid="stTabs"] button p {
-            font-size: 18px !important;
-            font-weight: 600 !important;
-            color: white !important;
-        }
-
-        /* --- ONGLET 1 : PREDICTION (VERT) --- */
-        div[data-testid="stTabs"] button:nth-child(1)[aria-selected="true"] {
-            background-color: #00C851 !important; 
-            box-shadow: 0px 0px 15px rgba(0, 200, 81, 0.5) !important;
-        }
-        div[data-testid="stTabs"] button:nth-child(1)[aria-selected="false"] {
-            background-color: #003311 !important; 
-            opacity: 0.6;
-        }
-
-        /* --- ONGLET 2 : PERFORMANCES (ROUGE) --- */
-        div[data-testid="stTabs"] button:nth-child(2)[aria-selected="true"] {
-            background-color: #ff4444 !important; 
-            box-shadow: 0px 0px 15px rgba(255, 68, 68, 0.5) !important;
-        }
-        div[data-testid="stTabs"] button:nth-child(2)[aria-selected="false"] {
-            background-color: #330000 !important; 
-            opacity: 0.6;
-        }
-
-        /* 2. RÉTABLIR LE STYLE DES BOUTONS DE FORMULAIRE (+/-) */
-        /* On force les boutons qui ne sont pas des onglets à rester normaux */
-        button[data-testid="stBaseButton-secondary"] {
-            width: auto !important;
-            height: auto !important;
-            background-color: transparent !important;
-            box-shadow: none !important;
-            border: 1px solid rgba(250, 250, 250, 0.2) !important;
-        }
-
-        /* Masquer la ligne rouge par défaut sous les onglets */
-        div[data-testid="stTabHighlight"] {
-            display: none !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
+st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
 
 # --- CONFIGURATION DES CHEMINS ---
 MODEL_DIR = "models"
