@@ -7,6 +7,64 @@ import numpy as np
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
 
+# ------------------------------------------------------------------
+# 🖌️ ZONE CSS PERSONNALISÉ POUR STYLISER LES ONG_LETS (RECTANGLES)
+# ------------------------------------------------------------------
+st.markdown(
+    """
+    <style>
+        /* 1. Force l'affichage des onglets en rectangles horizontaux grands et espacés */
+        div[data-testid="stTabs"] {
+            display: flex;
+            justify-content: center; /* Centre les onglets sur la page */
+            gap: 100px;              /* Éloigne ÉNORMÉMENT les onglets l'un de l'autre */
+            margin-bottom: 50px;     /* Espace entre les onglets et le contenu en dessous */
+        }
+
+        /* 2. Style générique de CHAQUE rectangle (désactivé ou activé) */
+        button[data-testid="stBaseButton-tag"] {
+            border: none !important;
+            border-radius: 10px !important; /* Bords légèrement arrondis pour faire rectangle pro */
+            padding: 15px 50px !important;   /* Donne de la hauteur et de la largeur (GRAND RECTANGLE) */
+            font-size: 24px !important;      /* Gros texte très visible */
+            font-weight: bold !important;
+            color: white !important;         /* Texte toujours blanc */
+            cursor: pointer;
+            transition: all 0.3s ease;      /* Effet de transition fluide */
+            opacity: 0.6;                   /* Un peu transparent quand désactivé */
+            min-width: 300px;               /* Largeur minimale pour que ce soit un beau rectangle */
+            text-align: center;
+        }
+
+        /* 3. Style spécifique du PREMIER rectangle (Prédiction) - COULEUR VERTE */
+        button[id^="tabs-b6579d40-42d3-11ef-9311-654876b5d259-tab-0"] {
+            background-color: #2ECC71 !important; /* Vert Émeraude */
+        }
+
+        /* 4. Style spécifique du DEUXIÈME rectangle (Performances) - COULEUR BLEUE */
+        button[id^="tabs-b6579d40-42d3-11ef-9311-654876b5d259-tab-1"] {
+            background-color: #3498DB !important; /* Bleu Ciel */
+        }
+
+        /* 5. Style quand on SURVOLE les rectangles */
+        button[data-testid="stBaseButton-tag"]:hover {
+            opacity: 1 !important;           /* Devient totalement opaque */
+            transform: scale(1.05);          /* Grossit légèrement pour l'effet */
+        }
+
+        /* 6. Style quand le rectangle est ACTIVÉ (Sélectionné) */
+        button[data-testid="stBaseButton-tag"][aria-selected="true"] {
+            opacity: 1 !important;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3) !important; /* Ombre portée pour le faire ressortir */
+        }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+# ------------------------------------------------------------------
+
+
 # --- CONFIGURATION DES CHEMINS ---
 MODEL_DIR = "models"
 
