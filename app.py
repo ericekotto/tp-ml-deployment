@@ -7,50 +7,47 @@ import numpy as np
 # 1. CONFIGURATION DE LA PAGE
 st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
 
-# --- STYLE FINAL : COULEURS PERMANENTES ET PROTECTION DES INPUTS ---
 st.markdown("""
     <style>
-        /* 1. Configuration de la barre d'onglets */
-        div[data-testid="stTabs"] {
-            gap: 50px !important;
-        }
-
-        /* 2. Style de base des boutons d'onglets (Rectangles) */
+        /* 1. STYLE DES ONG_LETS (RECTANGLES) */
         div[data-testid="stTabs"] button[role="tab"] {
             width: 250px !important;
             height: 60px !important;
             border-radius: 5px !important;
             border: 2px solid white !important;
             margin-right: 20px !important;
-            opacity: 0.8; /* Légèrement transparent par défaut pour le look */
         }
 
-        /* Texte des onglets */
-        div[data-testid="stTabs"] button[role="tab"] p {
-            font-size: 18px !important;
-            font-weight: bold !important;
-            color: white !important;
-        }
-
-        /* --- ONGLET 1 : TOUJOURS VERT --- */
+        /* Onglet 1 (Prédiction) -> VERT */
         div[data-testid="stTabs"] button[role="tab"]:nth-child(1) {
-            background-color: #00C851 !important; /* Vert permanent */
+            background-color: #00C851 !important;
         }
 
-        /* --- ONGLET 2 : TOUJOURS ROUGE --- */
+        /* Onglet 2 (Performances) -> ROUGE */
         div[data-testid="stTabs"] button[role="tab"]:nth-child(2) {
-            background-color: #ff4444 !important; /* Rouge permanent */
+            background-color: #ff4444 !important;
         }
 
-        /* Effet quand l'onglet est sélectionné : il devient très brillant */
-        div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
-            opacity: 1 !important;
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5) !important;
-            border: 3px solid white !important;
+        /* 2. STYLE DES BOUTONS D'ACTION (PRÉDIRE / CALCULER) -> BLEU */
+        /* On cible le bouton principal de validation */
+        div.stButton > button {
+            background-color: #007BFF !important; /* Bleu permanent */
+            color: white !important;
+            font-weight: bold !important;
+            width: 100% !important; /* Pour qu'il soit bien visible */
+            height: 50px !important;
+            border-radius: 8px !important;
+            border: none !important;
+        }
+        
+        /* Effet au survol du bouton bleu */
+        div.stButton > button:hover {
+            background-color: #0056b3 !important;
+            border: 1px solid white !important;
         }
 
-        /* 3. PROTECTION DES INPUTS (POUR VOIR LES CHIFFRES) */
-        /* On s'assure que les boutons + et - des number_input ne sont pas touchés */
+        /* 3. RÉPARATION DES CHAMPS DE SAISIE (NUMBER INPUT) */
+        /* On empêche les boutons +/- de devenir des rectangles géants */
         div[data-testid="stNumberInput"] button {
             width: 40px !important;
             height: 40px !important;
@@ -61,7 +58,7 @@ st.markdown("""
             color: white !important;
         }
 
-        /* Supprimer la ligne rouge par défaut de Streamlit */
+        /* Masquer la ligne de sélection par défaut */
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
