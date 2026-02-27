@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 # 1. CONFIGURATION DE LA PAGE
-st.set_page_config(page_title="Mes_3_modèles_en_marchine_learning", layout="wide", page_icon="logo64.png")
+st.set_page_config(page_title="ETUDE ET PREVISIONS SUR NOS 3 MODELS DE MACHINE LEARNING", layout="wide", page_icon="logo64.png")
 
 st.markdown("""
     <style>
