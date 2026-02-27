@@ -16,6 +16,8 @@ st.markdown("""
             border-radius: 5px !important;
             border: 2px solid white !important;
             margin-right: 20px !important;
+            font-weight: bold !important;
+            color: white !important;
         }
 
         /* Onglet 1 (Prédiction) -> VERT */
@@ -59,6 +61,12 @@ st.markdown("""
         div[data-testid="stTabHighlight"] {
             display: none !important;
         }
+
+        /* STYLE POUR LE MENU LATÉRAL (SIDEBAR) */
+        section[data-testid="stSidebar"] .stRadio > label {
+            font-weight: bold !important;
+            font-size: 1.1em !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -75,6 +83,7 @@ def load_model(filename):
 
 # --- NAVIGATION ---
 st.sidebar.title("📌 Menu Principal")
+# Ici, les noms sont corrigés pour être professionnels
 projet = st.sidebar.radio("Sélectionnez un projet :", 
     ["Accueil", "1. Census (Revenus)", "2. Auto-MPG (Consommation)", "3. Bank Marketing (Souscription)"])
 
@@ -98,7 +107,7 @@ st.sidebar.markdown(
 
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
-    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST DE NOS 3 MODÈLES DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
     st.divider()
     
     st.markdown("""
