@@ -155,30 +155,6 @@ if projet == "Accueil":
             **Enjeu :** Optimisation des campagnes de marketing direct.
             """)
 
-    # --- DATASET 2 : AUTO-MPG ---
-    with st.expander("🚗 Focus sur le Dataset : Auto-MPG (Consommation de Carburant)", expanded=True):
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.write("### ⛽ 📊")
-        with col2:
-            st.write("""
-            **Contexte :** Objectif de prédire l'efficacité énergétique (MPG) d'un véhicule.
-            **Détails techniques :** Régression. Variables clés : Cylindres, poids, puissance, année du modèle.
-            **Enjeu :** Impact technologique sur la réduction de consommation.
-            """)
-
-    # --- DATASET 3 : BANK MARKETING ---
-    with st.expander("🏦 Focus sur le Dataset : Bank Marketing (Marketing Direct)", expanded=True):
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.write("### 📞 🏦")
-        with col2:
-            st.write("""
-            **Contexte :** Prédire si le client va souscrire à un dépôt à terme suite à un appel.
-            **Détails techniques :** Classification. Variable critique : Durée du contact.
-            **Enjeu :** Optimisation des campagnes de marketing direct.
-            """)
-
 # --- PROJET 1 : CENSUS ---
 elif projet == "1. Census (Revenus)":
     st.header("📈 Prédiction des Tranches de Revenus (Census)")
