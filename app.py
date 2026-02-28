@@ -98,9 +98,7 @@ st.sidebar.caption("© 2026 **NGBAYAFOU NGOUH ENS STUDENT**")
 st.sidebar.markdown(
     """
     <div style='display: flex; flex-direction: column; gap: 5px;'>
-        <a href='https://github.com/ericekotto/tp-ml-deployment' target='_blank' style='text-decoration: none; color: #1E90FF; font-weight: bold; font-size: 14px;'>
-            🔵 Mon lien Github vers mon projet
-        </a>
+        
     </div>
     <style>
         [data-testid="stMarkdownContainer"] a { background-color: transparent !important; }
