@@ -94,7 +94,7 @@ projet = st.sidebar.radio("Sélectionnez un projet :",
 # --- PIED DE PAGE DANS LA SIDEBAR ---
 st.sidebar.markdown("<br>" * 8, unsafe_allow_html=True)
 st.sidebar.divider()
-st.sidebar.caption("© 2026 **EKOTTO ERIC ENS STUDENT**")
+st.sidebar.caption("© 2026 **NGBAYAFOU NGOUH ENS STUDENT**")
 st.sidebar.markdown(
     """
     <div style='display: flex; flex-direction: column; gap: 5px;'>
@@ -112,7 +112,7 @@ st.sidebar.markdown(
 # --- PAGE D'ACCUEIL ---
 # --- PAGE D'ACCUEIL ---
 if projet == "Accueil":
-    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>TEST_DE_NOS_3_MODELS DE MACHINE DONT LES DESCRIPTIONS SONT DONNEES CI-DESSOUS, SOYEZ LA BIENVENUE</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #2ECC71; text-align: center; font-size: 32px; font-weight: bold;'>ETUDE DE 3 MODELS DE MACHINE LEARNING</h1>", unsafe_allow_html=True)
     st.divider()
     
     st.markdown("""
