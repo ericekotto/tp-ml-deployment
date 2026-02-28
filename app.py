@@ -9,70 +9,51 @@ st.set_page_config(page_title="ETUDE ET PREVISIONS SUR NOS 3 MODELS DE MACHINE L
 
 st.markdown("""
     <style>
-        /* --- 1. TRANSFORMATION DES RONDS EN RECTANGLES BLEUS --- */
-        [data-testid="stSidebar"] div[role="radiogroup"] {
-            gap: 12px;
+        /* --- 1. FOND D'ÉCRAN ROSE CLAIR --- */
+        .stApp {
+            background-color: #FFF0F5 !important; /* LavenderBlush (Rose très clair) */
         }
 
-        /* Style de base : RECTANGLE BLEU */
+        /* --- 2. SIDEBAR (Optionnel : rose un peu plus prononcé) --- */
+        [data-testid="stSidebar"] {
+            background-color: #FFB6C1 !important; /* LightPink */
+        }
+
+        /* --- 3. BOUTONS RADIOS (RECTANGLES ROSE VIF) --- */
         [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] {
-            background-color: #007BFF !important;
+            background-color: #FF69B4 !important; /* HotPink */
             padding: 12px 20px !important;
             border-radius: 4px !important;
-            border: 1px solid #0056b3 !important;
+            border: 1px solid #FF1493 !important;
             width: 100% !important;
             transition: 0.3s ease;
         }
 
-        /* Effet au survol */
         [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"]:hover {
-            background-color: #0069d9 !important;
+            background-color: #FF1493 !important; /* DeepPink au survol */
             border-color: white !important;
         }
 
-        /* Suppression du bouton rond d'origine */
-        [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
-            display: none !important;
-        }
-
-        /* Style quand SÉLECTIONNÉ */
         [data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"] {
-            background-color: #004085 !important;
+            background-color: #C71585 !important; /* MediumVioletRed quand sélectionné */
             border: 2px solid #FFFFFF !important;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Texte des boutons Sidebar */
-        [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] p {
-            color: white !important;
-            font-weight: bold !important;
-            font-size: 15px !important;
-        }
-
-        /* --- 2. STYLE DES ONGLETS DU HAUT --- */
-        div[data-testid="stTabs"] button[role="tab"] {
-            width: 250px !important;
-            height: 60px !important;
-            border-radius: 5px !important;
-            border: 2px solid white !important;
-            margin-right: 20px !important;
-            color: white !important;
-        }
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(1) { background-color: #00C851 !important; }
-        div[data-testid="stTabs"] button[role="tab"]:nth-child(2) { background-color: #ff4444 !important; }
-
-        /* --- 3. STYLE DES BOUTONS D'ACTION BLEU --- */
+        /* --- 4. BOUTONS D'ACTION (PRÉDIRE) EN ROSE --- */
         div.stButton > button {
-            background-color: #007BFF !important;
+            background-color: #FF69B4 !important;
             color: white !important;
-            font-weight: bold !important;
-            width: 100% !important;
-            height: 50px !important;
-            border-radius: 8px !important;
+            border: none !important;
+        }
+        
+        div.stButton > button:hover {
+            background-color: #FF1493 !important;
         }
 
-        /* Masquer la ligne orange de Streamlit */
-        div[data-testid="stTabHighlight"] { display: none !important; }
+        /* Texte en noir pour la lisibilité sur fond rose */
+        .stApp p, .stApp h1, .stApp h2, .stApp h3, span {
+            color: #4B0082 !important; /* Indigo pour un joli contraste avec le rose */
+        }
     </style>
 """, unsafe_allow_html=True)
 
