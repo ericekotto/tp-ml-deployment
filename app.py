@@ -11,48 +11,66 @@ st.markdown("""
     <style>
         /* --- 1. FOND D'ÉCRAN ROSE CLAIR --- */
         .stApp {
-            background-color: #FFF0F5 !important; /* LavenderBlush (Rose très clair) */
+            background-color: #FFF0F5 !important;
         }
 
-        /* --- 2. SIDEBAR (Optionnel : rose un peu plus prononcé) --- */
+        /* --- 2. SIDEBAR ROSE --- */
         [data-testid="stSidebar"] {
-            background-color: #FFB6C1 !important; /* LightPink */
+            background-color: #FFB6C1 !important;
         }
 
-        /* --- 3. BOUTONS RADIOS (RECTANGLES ROSE VIF) --- */
+        /* --- 3. BOUTONS RADIOS DE LA SIDEBAR (RECTANGLES) --- */
         [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] {
-            background-color: #FF69B4 !important; /* HotPink */
+            background-color: #FF69B4 !important;
             padding: 12px 20px !important;
-            border-radius: 4px !important;
+            border-radius: 0px !important; /* FORME CARRÉE */
             border: 1px solid #FF1493 !important;
             width: 100% !important;
-            transition: 0.3s ease;
         }
 
-        [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"]:hover {
-            background-color: #FF1493 !important; /* DeepPink au survol */
-            border-color: white !important;
+        /* Masquer le rond d'origine */
+        [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
+            display: none !important;
         }
 
+        /* État sélectionné */
         [data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"] {
-            background-color: #C71585 !important; /* MediumVioletRed quand sélectionné */
+            background-color: #C71585 !important;
             border: 2px solid #FFFFFF !important;
         }
 
-        /* --- 4. BOUTONS D'ACTION (PRÉDIRE) EN ROSE --- */
-        div.stButton > button {
-            background-color: #FF69B4 !important;
+        /* --- 4. STYLE DES ONGLETS DU HAUT (FORME CARRÉE) --- */
+        div[data-testid="stTabs"] button[role="tab"] {
+            width: 250px !important;
+            height: 60px !important;
+            border-radius: 0px !important; /* FORME CARRÉE (Suppression des arrondis) */
+            border: 2px solid white !important;
+            margin-right: 10px !important;
             color: white !important;
-            border: none !important;
-        }
-        
-        div.stButton > button:hover {
-            background-color: #FF1493 !important;
+            font-weight: bold !important;
         }
 
-        /* Texte en noir pour la lisibilité sur fond rose */
-        .stApp p, .stApp h1, .stApp h2, .stApp h3, span {
-            color: #4B0082 !important; /* Indigo pour un joli contraste avec le rose */
+        /* Couleurs spécifiques des onglets */
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(1) { background-color: #FF69B4 !important; } /* Rose prédiction */
+        div[data-testid="stTabs"] button[role="tab"]:nth-child(2) { background-color: #C71585 !important; } /* Rose foncé perfs */
+
+        /* --- 5. BOUTONS D'ACTION (CARRÉS) --- */
+        div.stButton > button {
+            background-color: #FF1493 !important;
+            color: white !important;
+            font-weight: bold !important;
+            border-radius: 0px !important; /* FORME CARRÉE */
+            height: 50px !important;
+            width: 100% !important;
+            border: none !important;
+        }
+
+        /* Masquer la ligne de surbrillance Streamlit */
+        div[data-testid="stTabHighlight"] { display: none !important; }
+        
+        /* Texte général en indigo pour contraste */
+        .stApp p, .stApp h1, .stApp h2, .stApp h3 {
+            color: #4B0082 !important;
         }
     </style>
 """, unsafe_allow_html=True)
